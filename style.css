@@ -9,9 +9,11 @@ html {
 
 #main-body{
 	width: 65%;	
-	margin-left: 13%;
-	padding-left: 2%;
+	margin-left: auto;	
+	margin-right: 10%;
 	font-family: myBasic;
+	float: left;
+	display: block;
 }
 
 #main-body table img{
@@ -58,10 +60,10 @@ html {
 
 #left-nav{
 	float: left;
-	width: 10%;
-	display: overflow;
+	width: 17%;
+	display: block;
 	padding-left: 1px;
-	font-family: myBasic;
+	font-family: myBasic;	
 }
 
 #left-nav ul {
