@@ -1,0 +1,88 @@
+@font-face{
+	font-family: myBasic;
+	src: url(fonts/MonospaceTypewriter.ttf);
+}
+
+html {
+	background-color: #FFF7CE;
+}
+
+#main-body{
+	width: 65%;	
+	margin-left: 13%;
+	padding-left: 2%;
+	font-family: myBasic;
+}
+
+#main-body table img{
+	width: 225px;
+	height: 150px;
+	padding: none;
+}
+
+#main-body table {	
+	width: 100%;
+}
+
+#main-body table tr td {
+	width: auto;
+	padding: 5px;	
+}
+
+#main-body iframe {
+	width: 1000px;
+	height: 650px;
+	border: none;
+}
+
+.game-title {
+	/*border: 1px solid black;*/
+	vertical-align: top;
+	padding-bottom: 15%;
+}
+
+.game-button {
+		
+}
+
+#main-body a {
+	color: #066FDD;
+}
+
+#main-body a:hover {
+	text-decoration: none;
+}
+
+
+
+
+#left-nav{
+	float: left;
+	width: 10%;
+	display: overflow;
+	padding-left: 1px;
+	font-family: myBasic;
+}
+
+#left-nav ul {
+	list-style: none;
+	padding-left: 2px;
+	width:75%;
+}
+
+#left-nav li {
+	font-size: 1.5em;
+	font-size: 1.5em;
+	padding-top:15px;
+	padding-left: 5px;
+	
+}
+
+#left-nav a {
+	text-decoration: none;
+	color: #066FDD;
+}
+
+#left-nav li:hover {
+	border-bottom: 3px solid black;
+}
