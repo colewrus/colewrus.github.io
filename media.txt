@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 	
 	
-    <title>Writing Archive</title>
+    <title>Other Media</title>
     </head>
     <body>
 		<div id="left-nav">			
@@ -25,7 +25,7 @@
 			<p>Contact me at <a href="mailto:cole@taglabs.org">cole@taglabs.org</a></p>
 		</div>
 		<div id="main-body">
-			<h1>Writing Archive</h1>
+			<h1>Other Media</h1>
 			<br />
 			<h2>Game Developers Conferece (GDC) Narrative Review Competition (2015)</h2>
 			<p>GDC is the largest Game industriy conference and as a student I had the opportunity to submit a narrative review of a game. I was accepted and got the chance to present my review and poster in a wing of the conference and receive a student pass.</p>
