@@ -17,7 +17,7 @@ html {
 	display: block;
 }
 
-#main-body table img{
+.game-gallery img{
 	width: 225px;
 	height: 150px;
 	padding: none;
@@ -27,15 +27,50 @@ html {
 	width: 100%;
 }
 
-#main-body table tr td {
+.game-gallery tr td {
 	width: auto;
 	padding: 5px;	
+	
 }
 
 #main-body iframe {
 	width: 1000px;
 	height: 650px;
 	border: none;
+}
+
+.img-gallery tr td {
+	width: 30%;
+	height: 350px;
+	
+}
+
+.img-gallery img {
+
+}
+
+.img-gallery .tall {
+	width: 85%;
+	height: 90%;
+	margin: 5%;
+}
+
+.img-gallery .wide {
+	width: 90%;
+	height: 60%;
+	margin: 5%;
+}
+
+.img-gallery .square{
+	width: 90%;
+	height: 85%;
+	margin: 5%;
+}
+
+.img-gallery p {
+	font-size: 14px;
+	padding-left: 12px;
+	margin-left: 3px;
 }
 
 .game-title {
