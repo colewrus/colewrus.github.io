@@ -47,12 +47,22 @@
                     return color;
                 }
 
+                function eliminate(matches) {
+                    var finalCount = 1;
+                    for (var i = matches; i > 1; i = Math.ceil(i / 2)) {                        
+                        finalCount += i;
+                    }
+                    return finalCount;
+                }
+
+
                 function minuteCalc() {
                     var T = document.getElementById("Time").value;
                     var tpM = document.getElementById('tpM').value;
                     var C = document.getElementById('consoles').value;
-                    var M = Math.ceil(((T / tpM) / 2) * C);
-                    document.getElementById("mresult").innerHTML = "Total Matches to Play: " + M;
+                    var M = Math.ceil(((T / tpM) / 2) * C); //get the total matches for round 1
+            
+                    document.getElementById("mresult").innerHTML = "Total Matches to Play: " + eliminate(M);
 
                     var endDraw = false; //used to stop the while loop
                     var round = 1; //used for text population
@@ -69,7 +79,7 @@
                     
                     for(i=0; i<M; i++){
                         if (colum*spacer > (canvas.height-spacer*2)) {
-                            console.log("hit the end");
+                            
                             colum = 0;
                             rowTrack += 1;                                                       
                         }
@@ -108,7 +118,15 @@
                             
                             M = Math.ceil(M / 2);
                         } else {
-                            console.log("done drawing");
+                            colum = 0;
+                            rowTrack += 1;
+                            round += 1;
+                            ctx.fillStyle = "#e29300";
+                            ctx.fillRect(rowTrack * (spacer + 3), 50 + (colum * (spacer + 1)), spacer, spacer);
+                            cFont.font = "25px Georgia";
+                            cFont.fillStyle = "black";
+                            cFont.fillText("Final", 32 + (rowTrack * spacer), 10+(spacer/2));
+                         
                             endDraw = true;
                         }
                     }     
