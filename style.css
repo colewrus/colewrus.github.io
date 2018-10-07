@@ -65,6 +65,7 @@ html {
 	display: block;
 	padding-left: 1px;
 	font-family: myBasic;	
+	border-left: 1px, black;
 }
 
 #left-nav ul {

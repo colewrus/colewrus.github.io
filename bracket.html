@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="icon" href="img/colewrus_co.png">
+    <link rel="stylesheet" href="style.css">
+	
+	
+    <title>Home - Colewrus & Co.</title>
+    </head>
+    <body>
+		<div id="left-nav">			
+			<h1>Cole <br /> Wrampelmeier</h1>
+			<p>If I don't know<br /> I'll find out</p>
+			<ul>
+				<a href="index.html"><li>Games</li></a>
+				<a href="media.html"><li>Other Media</li></a>
+				<a href="writing.html"><li>Writing</li></a>
+				<a href="#"><li>Resume</li></a>
+			</ul>
+			<p>Contact me at <a href="mailto:cole@taglabs.org">cole@taglabs.org</a></p>
+		</div>
+		<div id="main-body">
+            <br />			
+			<p>Here is where we have the inputs for the Formula [Minutes] = ((Time)/tpM)/2)*C</p>
+            <p>
+                Time Available (minutes): <input type="text" id="Time" name="Time" /><br />
+            Time per Match (minutes): <input type="text" id="tpM" name="tpM" /><br />
+            Consoles available: <input type="text" id="consoles" name="consoles" /><br />
+             <button onclick="minuteCalc()">Calculation</button> 
+            </form>
+            </p>
+			<p id="mresult"></p>
+            <script>
+
+                function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+                function minuteCalc() {
+                    var T = document.getElementById("Time").value;
+                    var tpM = document.getElementById('tpM').value;
+                    var C = document.getElementById('consoles').value;
+                    var M = Math.ceil(((T / tpM) / 2) * C);
+                    document.getElementById("mresult").innerHTML = "Total Matches to Play: " + M;
+
+                    var endDraw = false; //used to stop the while loop
+                    var round = 1; //used for text population
+                    var canvas = document.getElementById("bracketDraw"); 
+                    var ctx = canvas.getContext("2d"); //variable used to draw the boxes
+                    var cFont = canvas.getContext("2d"); //variable used for round text
+                    cFont.font = "15px Georgia";
+                    cFont.fillStyle = "black";
+                    var rowTrack = 0; //actually tracks the colum for offset
+                    var colum = 0; //actually tracks the row for offset
+                    var spacer = 50; 
+                    const context = canvas.getContext("2d");
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    for(i=0; i<M; i++){
+                        if (colum*spacer > (canvas.height-spacer*2)) {
+                            console.log("hit the end");
+                            colum = 0;
+                            rowTrack += 1;                                                       
+                        }
+                         ctx.fillStyle = "blue";
+                         ctx.fillRect(rowTrack * (spacer+3), 50+(colum*(spacer+1)), spacer, spacer);
+                         colum += 1;
+                    }
+                    cFont.fillText("Round " +round, (rowTrack*spacer)/2, spacer/2);
+                    cFont.fillText("Matches: "+M, -13+(rowTrack*spacer)/2, 15+(spacer/2))
+                    rowTrack += 1;
+                   
+                    M = Math.ceil(M / 2);
+                    while (!endDraw) {
+                        if (M > 1) {
+                            round += 1;
+                            rowTrack += 1;
+                            colum = 0;
+                            cFont.fillStyle = "black";
+                            cFont.fillText("Round "+round, 26+(rowTrack*spacer), spacer/2);
+                            cFont.fillText("Matches: "+M, 20+(rowTrack*spacer), 15+(spacer/2))
+                            var fillColor = getRandomColor();
+
+                            for (j = 0; j < M; j++) {                                
+
+                                if (colum * spacer > (canvas.height - spacer * 2)) {
+                                    colum = 0;
+                                    rowTrack += 1;
+                                }
+                                ctx.fillStyle = fillColor;
+                                ctx.fillRect(rowTrack*(spacer+3), 50+(colum*(spacer+1)), spacer, spacer);
+                                colum += 1;
+                            }
+                            
+                            
+                            rowTrack += 1;
+                            
+                            M = Math.ceil(M / 2);
+                        } else {
+                            console.log("done drawing");
+                            endDraw = true;
+                        }
+                    }     
+
+                }
+            </script>
+            <canvas id="bracketDraw" width="850px" height="300px" style="border:3px solid #dddddd">
+            </canvas>
+		</div>
+    </body>
+	
+</html>
