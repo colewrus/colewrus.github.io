@@ -11,9 +11,10 @@ p, a {
 /* Generic styles */
 html {
   scroll-behavior: smooth;
+  background-color: #e0ddff;
 }
 
-a {
+.hero a {
   background-color: goldenrod;
   text-decoration: none;
   color: white;
@@ -28,28 +29,39 @@ a:hover {
 }
 
 .hero{
-    background: url('http://i.imgur.com/B7fszWY.jpg') center;
-	background-size: cover;
-	padding: 4rem 2rem;
+	padding: 0rem 2rem;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	
+	grid-template-columns: repeat(auto-fit, minmax(415px, 1fr));
+	border-bottom: 1px solid black;
 }
 
+
+
+
 .hero > *{
-	color: white;
-	-webkit-text-stroke: 1px black;
+	
+	
+	
 }
 
 .hero > h1{
 	font-size: 4rem;
-	padding-bottom: 1rem;	
-	font-
+	padding-bottom: 0rem;		
+		
 }
 
+.hero > article {
+	
+	color: black;
+	
+}
+
+
 .hero > article > p {
-	font-size: 2.5rem;
+	font-size: 1.2rem;
 	font-weight: 1200;
+	padding: 0rem 1rem;
 }
 
 .hero > article > a{
@@ -57,24 +69,34 @@ a:hover {
 	margin-top: .75rem;
 }
 
+
+
 .games{
+
 	padding: 2rem;
+	
 }
 
 .games > ul {
   display: grid;
+  list-style-type: none;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 1rem;
 }
 
 .games > ul > li {
-	border: 1px solid #E2E2E2;
+	border: 1px solid rgba(0,0,0, .1);
 	border-radius: .5rem;
+}
+
+.games > ul > li:hover{
+	background-color: rgba(235, 255, 221, 1);
 }
 
 .games > ul > li > figure {
 	max-height: 220px;
 	overflow: hidden;
+	margin: 0;
 	border-top-left-radius: .5rem;
 	border-top-right-radius: .5rem;
 	position: relative;
@@ -101,10 +123,10 @@ a:hover {
 	font-size: 1rem;
 	line-height: 1.5;
 	padding: 1rem .75rem;
-	color: #666666;
+	color: #444444;
 }
 
-.games > ul > li > a {
+.games > ul > li > p > a {
 	padding: .5rem 1rem;
 	margin: .5rem;
 }
