@@ -15,13 +15,13 @@ html {
 }
 
 .hero a {
-  background-color: goldenrod;
-  text-decoration: none;
-  color: white;
+
   border-radius: .25rem;
   text-align: center;
   display: inline-block;
   transition: all .3s;
+  padding: .15rem;
+  margin: .5rem;
 }
 
 a:hover {
@@ -29,52 +29,32 @@ a:hover {
 }
 
 .hero{
-	padding: 0rem 2rem;
-	display: grid;
-	
-	grid-template-columns: repeat(auto-fit, minmax(415px, 1fr));
+	padding: 0rem 4rem;
+	display: grid;	
+	grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
 	border-bottom: 1px solid black;
 }
-
-
 
 
 .hero > *{
 	
 	
-	
 }
 
 .hero > h1{
-	font-size: 4rem;
+	font-size: 3rem;
 	padding-bottom: 0rem;		
 		
 }
 
-.hero > article {
-	
+.hero > article {	
 	color: black;
-	
-}
-
-
-.hero > article > p {
-	font-size: 1.2rem;
-	font-weight: 1200;
-	padding: 0rem 1rem;
-}
-
-.hero > article > a{
-	padding: 1rem;
-	margin-top: .75rem;
 }
 
 
 
 .games{
-
-	padding: 2rem;
-	
+	padding: 2rem;	
 }
 
 .games > ul {
@@ -127,8 +107,7 @@ a:hover {
 }
 
 .games > ul > li > p > a {
-	padding: .5rem 1rem;
-	margin: .5rem;
+
 }
 
 

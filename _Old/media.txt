@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="style.css">
+	
+	
+    <title>Other Media</title>
+    </head>
+    <body>
+		<div id="left-nav">			
+			<h1>Cole <br /> Wrampelmeier</h1>
+			<p>If I don't know<br /> I'll find out</p>
+			<ul>
+				<a href="index.html"><li>Games</li></a>
+				<a href="media.html"><li>Other Media</li></a>
+				<a href="writing.html"><li>Writing</li></a>
+				<a href="#"><li>Resume</li></a>
+			</ul>
+			<p>Contact me at <a href="mailto:cole@taglabs.org">cole@taglabs.org</a></p>
+		</div>
+		<div id="main-body">
+			<h1>Other Media</h1>
+			<br />
+			<h2>Game Developers Conferece (GDC) Narrative Review Competition (2015)</h2>
+			<p>GDC is the largest Game industriy conference and as a student I had the opportunity to submit a narrative review of a game. I was accepted and got the chance to present my review and poster in a wing of the conference and receive a student pass.</p>
+			<p>I chose Spec Ops: The Line (Yager Development), released in 2012 it's very much a product of the time. A modern military shooter that could be mistaken for so many other Call of Duty copies of the generation. The game leans into all the tropes and problems of the time to make a story that implicates the player and developer in the violence on screen.</p>
+			<p><a href="https://www.gdcvault.com/gamenarrativereview">GDC Competition Archive</a></p>
+			<p><a href="http://twvideo01.ubm-us.net/o1/vault/gdc2015/GameNarrativeReview/Wrampelmeier_Spec%20Ops_the_Line%20.pdf" target="_blank">Narrative Review (PDF)</a></p>
+			<p><a href="http://twvideo01.ubm-us.net/o1/vault/gdc2015/GameNarrativeReview/Wrampelmeier_Spec%20Ops.jpg" target="_blank">Poster Image</a></p>
+			<br />
+			<h2>The Internet is an In-joke</h2>
+			<p>My senior thesis from undergrad looked at the online activism of Anonymous, particularly during the Arab Spring. There's a seed of our current online woes in this study but I can't claim any foresight into the current digital landscape. I never thought studying memes would remain so relevant to politics</p>
+			<p><a href="writing/comps_fulldraft.pdf" target="_blank">Full Paper (40+ pages)</a></p>
+		</div>
+	</body>
+</html>
