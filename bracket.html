@@ -63,8 +63,9 @@
                     var T = document.getElementById("Time").value;
                     var tpM = document.getElementById('tpM').value;
                     var C = document.getElementById('consoles').value;
-
-                    runMarch(T, tpM, C, 2);
+					var matchCount = T/tpM;
+                    //runMarch(T, tpM, C, 2);
+					brak(T, tpM, C, matchCount, 1, 1, 1);
                 }
 				
 				function runMarch(time, tpm, consoles, ppg){
@@ -121,7 +122,7 @@
                     var modGuy;
                     var semifinal = semi;
                     modGuy = m % 2;
-                  
+					console.log("match time: " + matchTime);
                     document.getElementById("mresult").innerHTML = "Total Matches to Play: " + m;
                     console.log("mod guy: " + modGuy);
                     ctx.fillStyle = getRandomColor();
