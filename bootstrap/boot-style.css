@@ -7,3 +7,30 @@
 
 	border: 1px solid black;
 }
+
+.card-img-top{
+	max-height: 15vw;
+	min-height: 10vw;
+	object-fit: cover;
+	width:100%;	
+}
+
+.card-body{
+	height: 20vw;
+}
+
+	
+
+@media (max-width: 575.89px){
+	.card-img-top{
+		object-fit: contain;
+	}
+	
+	.card-img-top{
+		display: none;
+	}
+	
+	.card-body{
+		height: 80vw;
+	}
+}
