@@ -19,6 +19,10 @@
 	height: 20vw;
 }
 
+
+body, html{
+	min-height: 100%;
+}
 	
 
 @media (max-width: 575.89px){
