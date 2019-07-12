@@ -24,6 +24,26 @@ body, html{
 	min-height: 100%;
 }
 	
+.r1{
+	border: 1px solid black;
+	height: 20em;
+}	
+
+
+.gaem{
+	padding: 1em;
+	border: 1px solid black;
+	margin: 1em;
+	text-align: center;
+
+}
+
+.gaem img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
 
 @media (max-width: 575.89px){
 	.card-img-top{
