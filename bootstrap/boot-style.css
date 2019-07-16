@@ -30,6 +30,7 @@ body, html{
 }	
 
 
+
 .gaem{
 	padding: 1em;
 	border: 1px solid black;
@@ -39,11 +40,59 @@ body, html{
 }
 
 .gaem img {
+	/*
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
+	*/
+	position: relative;
+	object-fit: cover;
+	flex-shrink: 0;
+	display: block;
+	
 }
 
+.gaem h2{
+	position: absolute;
+	top: 3em;
+	width: 100%;
+	
+}
+
+
+.gaem img:hover {
+	visibility: none;
+}
+
+.gaem .overlay{
+	
+	position: absolute;	
+	top: 0;
+	bottom: 0; 
+	left: 0;
+	right: 0;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background: rgba(1,0,0, 0.7);
+		opacity: 0;
+		transition: .5s ease;
+		
+	color: white;
+}
+
+.gaem:hover .overlay{
+	opacity: 1;
+}
+
+.gaem h2 span {
+	color: white;
+	letter-spacing: -1px;
+	background: rgb(0,0,0);
+	background: rgba(0,0,0,0.7);
+	padding: 5px;
+
+}
 
 @media (max-width: 575.89px){
 	.card-img-top{
