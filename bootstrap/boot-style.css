@@ -20,6 +20,7 @@
 }
 
 
+
 body, html{
 	min-height: 100%;
 }
@@ -93,6 +94,32 @@ body, html{
 	padding: 5px;
 
 }
+
+
+
+/*  Pixel Me */
+
+#C_pixelMe{
+	border: 1px solid red;
+	position: absolute;
+	z-index: 0;
+	top: 100px;
+	left: 100px;	
+}
+
+#C_hats{
+	border: 2px solid green;
+	position: absolute;
+	z-index: 1;
+	top: 100px;
+	left: 100px;
+}
+
+
+
+
+
+
 
 @media (max-width: 575.89px){
 	.card-img-top{
