@@ -16,14 +16,157 @@
   
     
 	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm">
+			
+			
+					
+				<canvas class="pixelMeCanvas" id="pixelTest" width="320" height="320">Cannot load</canvas>
+				<canvas class="pixelMeCanvas" id="eyeCanvas" width="320" height="320">Eyes no load</canvas>
+				
+					
+						
+					
+				
+			</div>
+			<div class="col-sm">
+				<button onClick="#">Do Thing</button>
+				<!--<img src='face-54.png' />	-->
+				<form id="params">
+					<input type="text" name="xSpot" placeholder="x position">
+					<input type="text" name="ySpot" placeholder="y position">
+				</form>
+				<p><button id="faceSub">-</button><span class="pixObj">Head</span><button id="faceAdd">+</button></p>
+				<p><button id="noseSub">-</button><span class="pixObj">Nose</span><button id="noseAdd">+</button></p>
+				<p><button id="eyeSub">-</button><span class="pixObj">Eyes</span><button id="eyeAdd">+</button></p>
+				<p><button id="hairSub">-</button><span class="pixObj">Hair</span><button id="hairAdd">+</button></p>
+				
+				<button id="cycleColor">Cycle Color</button>
+				<button id="draw">Draw</button>
+			</div>
+		
+		
+		</div>
+	</div>
 	
 	
 	
 	
 	
-	
-	
-	
+	<script>
+
+		var faceCanvas = document.getElementById('pixelTest');
+		var faceCtx = faceCanvas.getContext('2d');
+		var eyeCanvas = document.getElementById('eyeCanvas');
+		var eyeCtx = eyeCanvas.getContext('2d');
+		
+		var	baseImg = new Image();
+
+		var faces = new Array();
+		var eyes = new Array();
+		
+		var i_face = 0;
+		var i_nose = 0;
+		var i_hair = 0;
+		var i_eyes = 0;
+		
+		window.onload = function(){
+			//init	
+			baseImg.crossOrigin = "Anonymous";
+			baseImg.src = 'https://colewrus.github.io/img/abolido.png';
+			initFaces();
+			initEyes();
+			
+		}
+		
+		function initFaces(){		
+			faces[0] = new Image();
+			faces[0].src = 'pixMe/faces3-192.png';
+			
+			faces[1] = new Image();
+			faces[1].src = 'pixMe/faces2-192.png';
+			
+			faces[2] = new Image();
+			faces[2].src = 'pixMe/faces-192.png';
+			console.log(faces);
+		}
+		
+		function initEyes(){
+				eyes[0] = new Image();
+				eyes[0].src = 'pixMe/eyes.png';
+				
+				eyes[1] = new Image();
+				eyes[1].src = 'pixMe/eyes2.png';
+				
+				eyes[2] = new Image();
+				eyes[2].src = 'pixMe/eyes3.png';
+				console.log(eyes);
+		}
+		
+		function cycle(arr, val, context){ //array, up/down
+			var pos;
+			
+			if(arr == faces)	
+				pos = i_face;
+			if(arr == eyes)
+				pos = i_eyes;
+
+			console.log(arr[pos]);
+			if(val == '+'){
+				if((pos+1) < arr.length){
+					pos++;	
+				}else{
+					pos = 0;
+				}
+				if(arr == faces)
+					i_face = pos;
+				if(arr == eyes)
+					i_eyes = pos;
+			}
+			
+			context.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
+			
+			context.drawImage(arr[pos], 0, 0);
+			
+			console.log(arr[pos]);
+			console.log(pos);
+			console.log('cycle function complete');
+		}
+		
+		function drawImage(img){			
+			faceCtx.drawImage(faces[0], 0, 0);
+		}
+		
+		function color(){
+			console.log('should run');
+			var imgData = faceCtx.getImageData(0,0, 320, 320);
+			var inputs = document.getElementById('params');
+			console.log(inputs["xSpot"].value);
+		}
+		
+
+		
+		
+		//HEY LISTEN!
+		
+		document.getElementById("draw").addEventListener("click", function(){
+			drawImage(baseImg);
+		}, false);
+		
+		document.getElementById("cycleColor").addEventListener("click", function(){
+			
+		}, false);
+		
+		document.getElementById('faceAdd').addEventListener("click", function(){
+			cycle(faces, '+', faceCtx);
+		}, false);
+		
+		document.getElementById('eyeAdd').addEventListener("click", function(){
+			cycle(eyes, '+', eyeCtx);
+		}, false);
+		
+	</script>
 	
 	
 	

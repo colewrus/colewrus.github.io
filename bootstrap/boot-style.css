@@ -30,7 +30,9 @@ body, html{
 	height: 20em;
 }	
 
-
+.col-sm{
+	border: 1px solid red;
+}
 
 .gaem{
 	padding: 0.5em;
@@ -59,6 +61,18 @@ body, html{
 	
 }
 
+.pixelMeCanvas{
+	margin-left: 10px;
+	margin-top: 15px;
+	position: absolute;
+}
+
+.pixObj{
+	width: 10%;
+	display: inline-block;
+	border: 1px solid green;
+	padding:2px;
+}
 
 .gaem .overlay{
 	
