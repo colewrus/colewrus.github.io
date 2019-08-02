@@ -31,7 +31,7 @@ body, html{
 }	
 
 .col-sm{
-	border: 1px solid red;
+	
 }
 
 .gaem{
@@ -73,10 +73,10 @@ body, html{
 }
 
 .pixObj{
-	width: 10%;
+	width: 65px;
 	display: inline-block;
-	border: 1px solid green;
 	padding:2px;
+	text-align: center;
 }
 
 .gaem .overlay{

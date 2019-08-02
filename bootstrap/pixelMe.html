@@ -25,23 +25,24 @@
 				<canvas class="pixelMeCanvas" id="eyeCanvas" width="320" height="320">Eyes no load</canvas>
 				<canvas class="pixelMeCanvas" id="mouthCanvas" width="320" height="320">Mouth no load</canvas>
 				<canvas class="pixelMeCanvas" id="noseCanvas" width="320" height="320">Nose no load</canvas>
+				<canvas class="pixelMeCanvas" id="hairCanvas" width="320" height="320">Hair no load</canvas>
 					
 						
 					
 				
 			</div>
 			<div class="col-sm">
-				<button onClick="#">Do Thing</button>
-				<!--<img src='face-54.png' />	-->
+				
 				<form id="params">
 					<input type="text" name="xSpot" placeholder="x position">
 					<input type="text" name="ySpot" placeholder="y position">
 				</form>
+				<br />
 				<p><button id="faceSub">-</button><span class="pixObj">Head</span><button id="faceAdd">+</button></p>
 				<p><button id="noseSub">-</button><span class="pixObj">Nose</span><button id="noseAdd">+</button></p>
 				<p><button id="mouthSub">-</button><span class="pixObj">Mouth</span><button id="mouthAdd">+</button></p>
 				<p><button id="eyeSub">-</button><span class="pixObj">Eyes</span><button id="eyeAdd">+</button></p>
-				<p><button id="hairSub">-</button><span class="pixObj">Hair</span><button id="hairAdd">+</button></p>
+				<p><button id="hairSub">-</button><span class="pixObj">Hair</span><button id="hairAdd" onClick="">+</button></p>
 				
 				
 				<button id="cycleColor">Cycle Color</button>
@@ -70,18 +71,24 @@
 		var noseCanvas = document.getElementById('noseCanvas');
 		var noseCtx = noseCanvas.getContext('2d');
 		
+		var hairCanvas = document.getElementById('hairCanvas');
+		var hairCtx = hairCanvas.getContext('2d');
+		
 		var	baseImg = new Image();
 
 		var faces = new Array();
 		var eyes = new Array();
 		var mouths = new Array();
 		var noses = new Array();
+		var hairs = new Array();
 		
 		var i_face = 0;
 		var i_nose = 0;
 		var i_hair = 0;
 		var i_eyes = 0;
 		var i_mouth = 0;
+		
+	
 		
 		window.onload = function(){
 			//init	
@@ -91,6 +98,27 @@
 			initEyes();
 			initMouth();
 			initNose();
+			initHair();
+			/*
+			cycle(faces, '+', faceCtx);
+			cycle(eyes, '+', eyeCtx);
+			cycle(mouths, '+', mouthCtx);
+			cycle(noses, '+', noseCtx);
+			*/
+			
+			faceCtx.drawImage(faces[0], 0, 0);
+		}
+		
+		
+		function initHair(){
+			hairs[0] = new Image();
+			hairs[0].src = 'pixMe/hair-192.png';
+			
+			hairs[1] = new Image();
+			hairs[1].src = 'pixMe/hair2-192.png';
+			
+			hairs[2] = new Image();
+			hairs[2].src = 'pixMe/hair3-192.png';
 		}
 		
 		function initFaces(){		
@@ -102,7 +130,7 @@
 			
 			faces[2] = new Image();
 			faces[2].src = 'pixMe/faces-192.png';
-			console.log(faces);
+		
 		}
 		
 		function initNose(){
@@ -117,15 +145,15 @@
 		}
 		
 		function initEyes(){
-				eyes[0] = new Image();
-				eyes[0].src = 'pixMe/eyes.png';
-				
-				eyes[1] = new Image();
-				eyes[1].src = 'pixMe/eyes2.png';
-				
-				eyes[2] = new Image();
-				eyes[2].src = 'pixMe/eyes3.png';
-				console.log(eyes);
+			eyes[0] = new Image();
+			eyes[0].src = 'pixMe/eyes.png';
+			
+			eyes[1] = new Image();
+			eyes[1].src = 'pixMe/eyes2.png';
+			
+			eyes[2] = new Image();
+			eyes[2].src = 'pixMe/eyes3.png';
+	
 		}
 		
 		function initMouth(){
@@ -147,6 +175,8 @@
 				pos = i_mouth;
 			if(arr == noses)
 				pos = i_nose;
+			if(arr == hairs)
+				pos = i_hair;
 				
 			console.log(arr[pos]);
 			if(val == '+'){
@@ -174,6 +204,8 @@
 				i_mouth = pos;
 			if(arr == noses)
 				i_nose = pos;
+			if(arr == hairs)
+				i_hair = pos;
 			
 			context.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
 			
@@ -183,6 +215,8 @@
 			console.log(pos);
 			console.log('cycle function complete');
 		}
+		
+		
 		
 		function drawImage(img){			
 			faceCtx.drawImage(faces[0], 0, 0);
@@ -201,7 +235,7 @@
 		//HEY LISTEN!
 		
 		document.getElementById("draw").addEventListener("click", function(){
-			drawImage(baseImg);
+			
 		}, false);
 		
 		document.getElementById("cycleColor").addEventListener("click", function(){
@@ -218,10 +252,12 @@
 		
 		document.getElementById('mouthAdd').addEventListener("click", function(){
 			cycle(mouths, '+', mouthCtx);
-		}, false);
-		
+		}, false);		
 		document.getElementById('noseAdd').addEventListener("click", function(){
 			cycle(noses, '+', noseCtx);
+		}, false);
+		document.getElementById('hairAdd').addEventListener("click", function(){
+			cycle(hairs, '+', hairCtx);
 		}, false);
 		
 	</script>
