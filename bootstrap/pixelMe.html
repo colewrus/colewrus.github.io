@@ -18,13 +18,13 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm">
-			
-			
-					
+			<div class="col-sm canvarea"> <!-- Canvarea = canvas area -->
+				
+				<h1>Pixel Me</h1>
 				<canvas class="pixelMeCanvas" id="pixelTest" width="320" height="320">Cannot load</canvas>
 				<canvas class="pixelMeCanvas" id="eyeCanvas" width="320" height="320">Eyes no load</canvas>
-				
+				<canvas class="pixelMeCanvas" id="mouthCanvas" width="320" height="320">Mouth no load</canvas>
+				<canvas class="pixelMeCanvas" id="noseCanvas" width="320" height="320">Nose no load</canvas>
 					
 						
 					
@@ -39,8 +39,10 @@
 				</form>
 				<p><button id="faceSub">-</button><span class="pixObj">Head</span><button id="faceAdd">+</button></p>
 				<p><button id="noseSub">-</button><span class="pixObj">Nose</span><button id="noseAdd">+</button></p>
+				<p><button id="mouthSub">-</button><span class="pixObj">Mouth</span><button id="mouthAdd">+</button></p>
 				<p><button id="eyeSub">-</button><span class="pixObj">Eyes</span><button id="eyeAdd">+</button></p>
 				<p><button id="hairSub">-</button><span class="pixObj">Hair</span><button id="hairAdd">+</button></p>
+				
 				
 				<button id="cycleColor">Cycle Color</button>
 				<button id="draw">Draw</button>
@@ -58,18 +60,28 @@
 
 		var faceCanvas = document.getElementById('pixelTest');
 		var faceCtx = faceCanvas.getContext('2d');
+		
 		var eyeCanvas = document.getElementById('eyeCanvas');
 		var eyeCtx = eyeCanvas.getContext('2d');
+		
+		var mouthCanvas = document.getElementById('mouthCanvas');
+		var mouthCtx = mouthCanvas.getContext('2d');
+		
+		var noseCanvas = document.getElementById('noseCanvas');
+		var noseCtx = noseCanvas.getContext('2d');
 		
 		var	baseImg = new Image();
 
 		var faces = new Array();
 		var eyes = new Array();
+		var mouths = new Array();
+		var noses = new Array();
 		
 		var i_face = 0;
 		var i_nose = 0;
 		var i_hair = 0;
 		var i_eyes = 0;
+		var i_mouth = 0;
 		
 		window.onload = function(){
 			//init	
@@ -77,7 +89,8 @@
 			baseImg.src = 'https://colewrus.github.io/img/abolido.png';
 			initFaces();
 			initEyes();
-			
+			initMouth();
+			initNose();
 		}
 		
 		function initFaces(){		
@@ -92,6 +105,17 @@
 			console.log(faces);
 		}
 		
+		function initNose(){
+			noses[0] = new Image();
+			noses[0].src = 'pixMe/nose-192.png';
+			
+			noses[1] = new Image();
+			noses[1].src = 'pixMe/nose2-192.png';
+			
+			noses[2] = new Image();
+			noses[2].src = 'pixMe/nose3-192.png';
+		}
+		
 		function initEyes(){
 				eyes[0] = new Image();
 				eyes[0].src = 'pixMe/eyes.png';
@@ -104,6 +128,14 @@
 				console.log(eyes);
 		}
 		
+		function initMouth(){
+			mouths[0] = new Image();
+			mouths[0].src = 'pixMe/mouth-192.png';
+			
+			mouths[1] = new Image();
+			mouths[1].src = 'pixMe/mouth2-192.png';
+		}
+		
 		function cycle(arr, val, context){ //array, up/down
 			var pos;
 			
@@ -111,19 +143,37 @@
 				pos = i_face;
 			if(arr == eyes)
 				pos = i_eyes;
-
+			if(arr == mouths)
+				pos = i_mouth;
+			if(arr == noses)
+				pos = i_nose;
+				
 			console.log(arr[pos]);
 			if(val == '+'){
+				console.log('increment up ' & arr);
 				if((pos+1) < arr.length){
 					pos++;	
 				}else{
 					pos = 0;
 				}
-				if(arr == faces)
-					i_face = pos;
-				if(arr == eyes)
-					i_eyes = pos;
 			}
+			
+			if(val == '-'){
+				console.log('increment down ' & arr);
+				if((pos-1) < 0){
+					pos = arr.length-1;
+				}else{
+					pos--;
+				}
+			}
+			if(arr == faces)
+				i_face = pos;
+			if(arr == eyes)
+				i_eyes = pos;
+			if(arr == mouths)
+				i_mouth = pos;
+			if(arr == noses)
+				i_nose = pos;
 			
 			context.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
 			
@@ -164,6 +214,14 @@
 		
 		document.getElementById('eyeAdd').addEventListener("click", function(){
 			cycle(eyes, '+', eyeCtx);
+		}, false);
+		
+		document.getElementById('mouthAdd').addEventListener("click", function(){
+			cycle(mouths, '+', mouthCtx);
+		}, false);
+		
+		document.getElementById('noseAdd').addEventListener("click", function(){
+			cycle(noses, '+', noseCtx);
 		}, false);
 		
 	</script>
