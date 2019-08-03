@@ -88,7 +88,9 @@
 		var i_eyes = 0;
 		var i_mouth = 0;
 		
-	
+	   hairCanvas.onload = function(){
+    
+       }
 		
 		window.onload = function(){
 			//init	
@@ -100,13 +102,19 @@
 			initNose();
 			initHair();
 			/*
-			cycle(faces, '+', faceCtx);
-			cycle(eyes, '+', eyeCtx);
-			cycle(mouths, '+', mouthCtx);
-			cycle(noses, '+', noseCtx);
+			
 			*/
 			
-			faceCtx.drawImage(faces[0], 0, 0);
+			faceCtx.drawImage(baseImg, 0, 0);
+      
+            hairs[2].onload = function(){
+                console.log("face 2 loaded");
+                cycle(faces, '+', faceCtx);
+                cycle(eyes, '+', eyeCtx);
+                cycle(mouths, '+', mouthCtx);
+			    cycle(noses, '+', noseCtx);
+                cycle(hairs, '+', hairCtx);
+            }
 		}
 		
 		
@@ -178,9 +186,9 @@
 			if(arr == hairs)
 				pos = i_hair;
 				
-			console.log(arr[pos]);
+			
 			if(val == '+'){
-				console.log('increment up ' & arr);
+				
 				if((pos+1) < arr.length){
 					pos++;	
 				}else{
@@ -189,7 +197,6 @@
 			}
 			
 			if(val == '-'){
-				console.log('increment down ' & arr);
 				if((pos-1) < 0){
 					pos = arr.length-1;
 				}else{
@@ -210,10 +217,8 @@
 			context.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
 			
 			context.drawImage(arr[pos], 0, 0);
-			
-			console.log(arr[pos]);
-			console.log(pos);
-			console.log('cycle function complete');
+            console.log("cycle complete");
+
 		}
 		
 		
@@ -245,19 +250,37 @@
 		document.getElementById('faceAdd').addEventListener("click", function(){
 			cycle(faces, '+', faceCtx);
 		}, false);
+        document.getElementById('faceSub').addEventListener("click", function(){
+			cycle(faces, '-', faceCtx);
+		}, false);
+        
 		
 		document.getElementById('eyeAdd').addEventListener("click", function(){
 			cycle(eyes, '+', eyeCtx);
 		}, false);
-		
+        document.getElementById('eyeSub').addEventListener("click", function(){
+			cycle(eyes, '-', eyeCtx);
+		}, false);
+        
 		document.getElementById('mouthAdd').addEventListener("click", function(){
 			cycle(mouths, '+', mouthCtx);
-		}, false);		
+		}, false);	
+        document.getElementById('mouthSub').addEventListener("click", function(){
+			cycle(mouths, '-', mouthCtx);
+		}, false);
+        
 		document.getElementById('noseAdd').addEventListener("click", function(){
 			cycle(noses, '+', noseCtx);
 		}, false);
+        document.getElementById('noseSub').addEventListener("click", function(){
+			cycle(noses, '-', noseCtx);
+		}, false);
+        
 		document.getElementById('hairAdd').addEventListener("click", function(){
 			cycle(hairs, '+', hairCtx);
+		}, false);
+        document.getElementById('hairSub').addEventListener("click", function(){
+			cycle(hairs, '-', hairCtx);
 		}, false);
 		
 	</script>
