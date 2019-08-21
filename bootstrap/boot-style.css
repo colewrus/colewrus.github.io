@@ -3,6 +3,17 @@
 	color: #c7a6d8;
 }
 
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width:auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+
 .test {
 
 	border: 1px solid black;
@@ -27,7 +38,7 @@ body, html{
 	
 .r1{
 	
-	height: 20em;
+	/*height: 20em;*/
 }	
 
 .col-sm{
@@ -157,8 +168,21 @@ body, html{
 
 
 
+/* 
+Need an 800px width media query
+- the stacking of the col-sm is borked (width too locked in?)
+- hover text padding is a bit too much (need to set character limit)
 
+*/ 
+
+@media (max-width: 800px){
+    
+}
 @media (max-width: 575.89px){
+    .row{
+       margin: auto;
+        border: 1px solid red;
+    }
 	.card-img-top{
 		object-fit: contain;
 	}

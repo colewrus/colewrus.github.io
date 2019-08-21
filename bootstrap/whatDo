@@ -1,0 +1,35 @@
+Home
+
+About
+
+Contact
+ > Generate google phone number
+
+Browser
+- Map
+- filters
+-- Resource
+-- location
+-- Featured person per month
+>> Results open below
+> List of individuals with
+    >Lightbox popup 
+-{  video (on hover, play)
+    name
+    location
+    expertise
+    contact information (link to their website/social)
+    Story text/first contact 
+  }
+    
+Why am I doing this?    
+> Image in separate column 
+>> Media query to stack image over text
+
+
+
+General
+> columns and rows not stacking
+> the title of the page is not reflecting actual page name. Probs gotta php array that
+
+
