@@ -47,11 +47,11 @@ body, html{
 
 .gaem{
 	padding: 0.5em;
-	
+	min-height: 10vw;
 	margin: 1em;
 	text-align: center;
 	border-radius: 1em;
-	width: 250px;
+	width: 200px;
 	
 }
 
@@ -65,29 +65,6 @@ body, html{
 	height: 125px;
 	display: block;
 	
-}
-
-.gaem h2{
-
-	
-}
-
-.canvarea{
-	
-	height: 350px;
-}
-
-.pixelMeCanvas{
-	margin-left: 10px;
-	margin-top: 15px;
-	position: absolute;
-}
-
-.pixObj{
-	width: 65px;
-	display: inline-block;
-	padding:2px;
-	text-align: center;
 }
 
 .gaem .overlay{
@@ -163,7 +140,22 @@ body, html{
 	left: 100px;
 }
 
+.canvarea{
+	height: 350px;
+}
 
+.pixelMeCanvas{
+	margin-left: 10px;
+	margin-top: 15px;
+	position: absolute;
+}
+
+.pixObj{
+	width: 65px;
+	display: inline-block;
+	padding:2px;
+	text-align: center;
+}
 
 
 
@@ -176,8 +168,9 @@ Need an 800px width media query
 */ 
 
 @media (max-width: 800px){
-    
+		
 }
+
 @media (max-width: 575.89px){
     .row{
        margin: auto;
