@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="boot-style.css">
+    <title>Decision Gaem</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body onLoad="Setup()">
+  
+    
+	
+	<div class="container-fluid">
+        <div class="row">
+            <p style="margin: auto">Spacer</p>
+        </div>
+		<div class="row">
+			<div class="col-sm" style="border: 1px solid black"> 
+				<div id="option1">
+                    <h2 class="choiceH">Option 1</h2>
+                    <p class="choiceP">Description text of your choice for option 1</p>
+                </div>
+				
+				
+			</div>
+			<div class="col-sm" style="border: 1px solid black">
+				<div id="narrative">
+                    <h1 id="narrativeHeader">Concept</h1>
+                    <p id="narrativeP">Description of the consequences of your previous action...</p>
+                    
+                </div>
+            </div>
+		    <div class="col-sm" style="border: 1px solid black">
+                <div id="option2">
+                    <h2 class="choiceH">Option 2</h2>
+                    <p class="choiceP">Description text of your choice for option 2</p>
+                </div>
+            </div>
+		
+		</div>
+        <div class="row">
+            <button onClick="Run()">Run Meee</button>
+        </div>
+	</div>
+    
+    <script> 
+        
+        //draw a "card" that contains elements narrative, choice
+        //narrative will be the starter and contain the possible next two narratives, one for each choice - 3 total
+        //Maybe easier to have 1 narrative with 2 choices and each choice has a narrative. 
+        
+        //3rd idea, have it work through turn timer with 1 narrative and 1 choice object per. 
+        
+        
+        //Narrative
+            //H1 - p
+        
+        //Choice 
+            //h2 - p
+        
+        class Narrative{
+            constructor(heading, description){
+                this.heading = heading;
+                this.description = description;
+            }
+            
+            populate(){
+                var h = document.getElementById("narrativeHeader");
+                var p = document.getElementById("narrativeP");
+                
+                h.innerHTML = this.heading; 
+                p.innerHTML = this.description;
+            }
+        }
+        
+        
+        class Choice{ //needs some kind of parameter so we can set conditions
+           
+            
+            relation = false; //by default not related to any other choices
+            consequences;     
+        
+            constructor(heading, description){
+                this.heading = heading;
+                this.description = description;
+            }
+            
+            populate(header, graph){ 
+                header.innerHTML = this.heading;
+                graph.innerHTML = this.description;
+            }
+            
+            defineConsequence(choice1, choice2){
+                this.consequences.push(choice1);
+                this.consequences.push(choice2);
+            }
+            //some way to store and connect all these choices together
+        }
+        
+        var first = new Narrative("Test h2", "test p");
+        var storyTree = new Array();
+        var choiceArray = new Array();//these are the different choices
+        var choiceWar = new Array();
+        var choiceH = document.getElementsByClassName("choiceH"); //choice headers
+        var choiceP = document.getElementsByClassName("choiceP"); //choice paragraphs
+        
+        var currentCondition; //this is the latest condition passed in by a choice, helps detemermine what can come next 
+        
+        function Setup(){
+            storyTree.push(new Narrative("Welcome", "The games begin, please choose"));
+        
+            storyTree[0].populate();
+            
+            choiceArray.push(new Choice("Choice 1", "The description text"));
+            choiceArray.push(new Choice("Choice2", "The second description"));
+            
+            choiceWar.push(new Choice("This is War! First", "description of war options"));
+            
+            
+            //choiceArray[0].populate(choiceH[0], choiceP[0]);
+            //choiceArray[0].populate(choiceH[0], choiceP[0]);
+            
+        }
+   
+        function Run(){
+            choiceArray[0].populate(choiceH[0], choiceP[0]);
+        }
+      
+    </script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>

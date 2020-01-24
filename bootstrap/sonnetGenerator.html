@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="boot-style.css">
+    <title>Sonnet Generator</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="jquery-csv.js"></script>
+  </head>
+  <body>
+  
+    
+	
+	<div class="container-fluid">
+        <div class="row">
+            <h1 style="margin: auto">Sonnet Generator</h1>
+        </div>
+		<div class="row">
+			<div class="col-sm"> 
+				<div id="option1" onclick="AddToMain(1)">
+                    <h2 class="choiceH" id="h1">Line Option 1</h2>
+                </div>
+				
+				
+			</div>
+			<div class="col-sm">
+				<div id="narrative">
+                    <h1 id="narrativeHeader">Poem In Progress...</h1>
+                    <p id="progress"></p>
+                    
+                </div>
+            </div>
+		    <div class="col-sm">
+                <div id="option2" onclick="AddToMain(2)">
+                    <h2 class="choiceH" id="h2">Line Option 2</h2>
+                </div>
+            </div>
+		</div>
+        <div class="row">
+          
+        </div>
+	</div>
+    
+    <script> 
+        
+        var sonnets = ["From fairest creatures we desire increase", "That thereby beauty's rose might never die", "But as the riper should by time decease", "His tender heir might bear his memory", "When forty winters shall besiege thy brow" , "And dig deep trenches in thy beauty's field", "Thy youth's proud livery so gazed on now", "Will be a totter'd weed of small worth held", "Look in thy glass and tell the face thou viewest", "Now is the time that face should form another" ,  "Whose fresh repair if now thou not renewest", "Thou dost beguile the world, unbless some mother", "Unthrifty loveliness, why dost thou spend", "Upon thy self thy beauty's legacy?", "Nature's bequest gives nothing, but doth lend", "And being frank she lends to those are free", "Full many a glorious morning have I seen","Flatter the mountain tops with sovereign eye" ,"Kissing with golden face the meadows green", "Gilding pale streams with heavenly alchemy;", "Anon permit the basest clouds to ride", "With ugly rack on his celestial face", "And from the forlorn world his visage hide", "Stealing unseen to west with this disgrace:", "Even so my sun one early morn did shine", "With all triumphant splendour on my brow;", "But out, alack, he was but one hour mine","The region cloud hath mask'd him from me now.", "Yet him for this my love no whit disdaineth;","Suns of the world may stain when heaven's sun staineth."];
+        
+        var counter;
+        
+        window.onload = function(){
+            counter = 0;
+            SetText();
+        }
+  
+        
+        function Test(){
+            console.log("test");
+        }
+        
+        function SetText(){    
+            document.getElementById('h1').innerHTML = sonnets[counter];
+            counter++;
+            document.getElementById('h2').innerHTML = sonnets[counter];
+            counter++;
+            
+        }
+        
+        function GameEnd(){
+            document.getElementById('h1').innerHTML = "";
+          
+            document.getElementById('h2').innerHTML = "";
+            document.getElementById('narrativeHeader').innerHTML = "Poem Done";
+        }
+        
+        function AddToMain(pos){
+            if(counter <=28){
+                var lineBreak = document.createElement("br")
+                var progress =  document.getElementById('progress');
+                progress.append(lineBreak);
+                if(pos == 1){
+                    progress.append("" + sonnets[counter-2]);
+                }
+                if(pos == 2){
+                    progress.append("" + sonnets[counter-1]);
+                }
+
+                SetText();  
+            }else{
+                GameEnd();
+            }
+                
+        }
+        
+    </script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>
