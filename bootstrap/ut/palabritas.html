@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="../boot-style.css">
+	<link rel="stylesheet" type="text/css" href="word-style.css">
+    <title>Palabritas</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  </head>
+  <body>
+  
+    
+	
+	<div class="container-fluid">
+        <div class="row" id="header">
+            <h1>Palabritas - Little Words</h1>
+        </div>
+        <div class="row">   
+			<div class="buffer" style="background-color:green">
+			</div>
+			<div id="gamespace">		
+				<br>
+				<h2 class="note">Note Goes here</h2>
+				
+				<p id="indicator"></p>
+				<button id="start">Play Gaem</button>
+				<div class="botButtons">
+					<ul>
+						<li class="answers" id='q'>Q: Option 1</li>
+						<li class="answers" id='w'>W: Option 2</li>
+						<li class="answers" id='e'>E: Option 3</li>
+						<li class="answers" id='r'>R: Option 4</li>
+					</ul>
+				</div>
+			</div>
+			<div class="buffer" style="background-color:red">
+			</div>
+        </div>
+
+
+	</div>
+    
+    <script> 
+	
+       
+		var correct = null; //this will hold the correct answer available
+		var wordList = [
+			{note: 'vivo', q: 'I want', w: 'I live', e: 'I dance', r: 'I cry',
+				correct: 1},
+			{note: 'imaginandote', q:'fight you', w:'love you', e:'photo you', r:'imagine you', correct:3},
+			{note: 'el amor', q:'the heart', w:'the love', e:'the world', r:'the head', correct:1},
+			{note: 'Yo estaba', q:'I was', w:' I will', e:'I am', r:'I will not', correct:0},
+			{note: 'sin hablar', q:'without living', w:'without speaking', e:'without looking', r:'without loving', correct:1},
+			{note: 'sin mirar', q:'without living', w:'without speaking', e:'without looking', r:'without loving', correct:2},
+			{note: 'no se', q:"I don't see", w:"I don't talk", e:"I don't know", r:"I don't feel", correct:2},
+			{note: 'muriendo', q:'searching', w:'speaking', e:'looking', r:'dying', correct:3},
+			{note: 'No aguanto mas', q:"I can't hear anymore", w:"I can't fight anymore", e:"I can't take anymore", r:"I can't work anymore", correct:2},
+			{note: 'esta noche', q:'last night', w:'tonight', e:'tomorrow night', r:'any night', correct:1},
+			{note: 'nadie mas', q:'nothing more', w:'much more', e:'everyone', r:'nobody', correct:3},
+			{note: 'los tambores', q:'drums', w:'tambourines', e:'bells', r:'tapeworms', correct:0},
+			{note: 'mi alma', q:'my homework', w:'my house', e:'my aunt', r:'my soul', correct:3}			
+		]
+		var times = [3000, 9000, 12000, 17000, 21000, 26000, 31000, 34000, 36000, 41000, 45000, 51000, 55000];
+		
+		$(window).on('load', function(){
+			$('.note').hide();		
+			$('#indicator').hide();
+		
+			$('#q').data("val", 0);
+			$('#w').data("val", 1);
+			$('#e').data("val", 2);
+			$('#r').data("val", 3);
+			
+			console.log(wordList);
+			console.log(times);
+		});
+		
+		
+		$('#start').click(function(){
+			$('.note').show();
+			$(this).hide();
+			$('#indicator').show();
+			setNote(0);
+			timerFun();
+		
+	
+		});
+		
+		function timerFun(){
+			for(i=0; i<times.length; i++){			
+				setTimeout(setNote, times[i], i);
+			}
+		}
+		
+		function test(){
+			console.log('tick');
+		}
+		
+		$('.answers').click(function(){
+			var value;
+			
+			switch($('.answers').index(this)){
+				case 0:
+					console.log($(this).data("val"));
+					value = $(this).data("val");
+					break;
+				case 1:
+					console.log($(this).data("val"));
+					value = $(this).data("val");
+					break;
+				case 2:
+					console.log($(this).data("val"));
+					value = $(this).data("val");
+					break;
+				case 3: 
+					console.log($(this).data("val"));
+					value = $(this).data("val");
+					break;				
+			}			
+			
+			if(value == correct){
+				console.log('buen trabajo');
+				$('#indicator').text('correct');
+			}else{
+				console.log('muy malo');
+				$('#indicator').text('wrong');
+			}
+			
+		});
+
+		function setNote(i){
+			$('.note').text(wordList[i].note);
+			$('#q').text(wordList[i].q);			
+			$('#w').text(wordList[i].w);
+			$('#e').text(wordList[i].e);
+			$('#r').text(wordList[i].r);
+			$('#indicator').text('');
+			correct = wordList[i].correct;
+		}
+		
+    </script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>
