@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="boot-style.css">
+    <link rel="stylesheet" type="text/css" href="under-style.css">
+    <title>Under</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="jquery-csv.js"></script>
+  </head>
+  <body>
+  
+    
+	
+	<div class="container-fluid">
+        <div class="row">
+            <p>Resource row</p>
+            <div class="resources" id="r1">
+                <img src="http://i.lvme.me/f86t9oh.jpg" height="25px" width="25px">
+                <span></span>
+            </div>
+            <div class="resources" id="r2">
+                <img src="http://i.lvme.me/f86t9oh.jpg" height="25px" width="25px">
+                <span></span>
+            </div>
+            <div class="resources" id="r3">
+                <img src="http://i.lvme.me/f86t9oh.jpg" height="25px" width="25px">
+                <span></span>
+            </div>
+            <div class="resources" id="r4">
+                <img src="http://i.lvme.me/f86t9oh.jpg" height="25px" width="25px">
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <h1 style="margin: auto">Under</h1>
+        </div>
+		<div class="row">
+			<div class="col-sm"> 
+				<div class="sonnetCard" id="card1">
+                    <h2 class="choiceH" id="h1">Card 1</h2>
+                </div>
+                <div class="sonnetCard" id="card3">
+                    <h2 class="choiceH">Card 3</h2>
+                </div>
+				
+				
+			</div>
+			<div class="col-sm">
+				<div id="context">
+                    <h1 id="contextH">Situation</h1>
+                    <p id="contextP"></p>
+                    
+                </div>
+            </div>
+		    <div class="col-sm">
+                <div class="sonnetCard" id ="card2">
+                    <h2 class="choiceH" id="h2">Card Card 2</h2>
+                </div>
+                <div class="sonnetCard" id="card3">
+                    <h2 class="choiceH">Line Option 3</h2>
+                </div>
+            </div>
+		</div>
+        <div class="row">
+          
+        </div>
+	</div>
+    
+    <script> 
+       
+        var food = 3;
+        var mats = 5;
+        var pubOrd = 7;
+        var waterlvl = 2;
+        
+        
+        window.onload = function(){
+            SetContext("Header", "Set context paragraph");
+            SetResources(food + " Food", mats + " Materials", pubOrd + " Public Order", waterlvl + " Water Lvl");
+        }
+        
+        //Context box
+            //div #context
+                //h1 #contextH
+                //p #contextP
+            
+        
+        $('.sonnetCard').click(function(e){
+            alert("Hit a button: " + e.target);
+        })
+        
+        function SetContext(h, p){
+            $('#contextH').text(h);
+            $('#contextP').text(p);
+        }
+        
+        function SetResources(a, b, c, d){
+            $('#r1').find('span').text(a);
+            $('#r2').find('span').text(b);
+            $('#r3').find('span').text(c);
+            $('#r4').find('span').text(d);
+        }
+        
+        $('#context').click(function(){
+            alert("clicked context");
+        })
+        function Set2Cards(){
+            //
+        }
+        
+    </script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>

@@ -1,0 +1,34 @@
+.sonnetCard{
+    border: 1px solid black;
+   
+    padding: 0.75em;
+    margin: 0.5em;
+    background: #e6ccff;
+    border-radius: 10px;
+    height: 30vh;
+}
+
+
+#main{
+  
+}
+
+.resources img{
+   
+    object-fit: contain;
+}
+
+#context{
+    border:3px solid red;
+    height: 100%;   
+}
+
+.resources{
+    display: inline-block;
+    width: 15vw;
+    margin: auto;
+    background-color: rgba(150, 150, 150, .25);
+    border-radius: 5px;
+    padding-left: 5px;
+}
+

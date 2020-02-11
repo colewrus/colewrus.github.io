@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom Style -->
 	<link rel="stylesheet" type="text/css" href="boot-style.css">
+    <link rel="stylesheet" type="text/css" href="sonnet-style.css">
     <title>Sonnet Generator</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="jquery-csv.js"></script>
@@ -23,8 +24,11 @@
         </div>
 		<div class="row">
 			<div class="col-sm"> 
-				<div id="option1" onclick="AddToMain(1)">
+				<div class="sonnetCard">
                     <h2 class="choiceH" id="h1">Line Option 1</h2>
+                </div>
+                <div class="sonnetCard">
+                    <h2 class="choiceH">Line Option 3</h2>
                 </div>
 				
 				
@@ -37,8 +41,11 @@
                 </div>
             </div>
 		    <div class="col-sm">
-                <div id="option2" onclick="AddToMain(2)">
+                <div class="sonnetCard">
                     <h2 class="choiceH" id="h2">Line Option 2</h2>
+                </div>
+                <div class="sonnetCard">
+                    <h2 class="choiceH">Line Option 3</h2>
                 </div>
             </div>
 		</div>
@@ -52,9 +59,29 @@
         var sonnets = ["From fairest creatures we desire increase", "That thereby beauty's rose might never die", "But as the riper should by time decease", "His tender heir might bear his memory", "When forty winters shall besiege thy brow" , "And dig deep trenches in thy beauty's field", "Thy youth's proud livery so gazed on now", "Will be a totter'd weed of small worth held", "Look in thy glass and tell the face thou viewest", "Now is the time that face should form another" ,  "Whose fresh repair if now thou not renewest", "Thou dost beguile the world, unbless some mother", "Unthrifty loveliness, why dost thou spend", "Upon thy self thy beauty's legacy?", "Nature's bequest gives nothing, but doth lend", "And being frank she lends to those are free", "Full many a glorious morning have I seen","Flatter the mountain tops with sovereign eye" ,"Kissing with golden face the meadows green", "Gilding pale streams with heavenly alchemy;", "Anon permit the basest clouds to ride", "With ugly rack on his celestial face", "And from the forlorn world his visage hide", "Stealing unseen to west with this disgrace:", "Even so my sun one early morn did shine", "With all triumphant splendour on my brow;", "But out, alack, he was but one hour mine","The region cloud hath mask'd him from me now.", "Yet him for this my love no whit disdaineth;","Suns of the world may stain when heaven's sun staineth."];
         
         var counter;
+        var quatrainCounter;
+        var quatrains = new Array();
+        var sonnetText = document.getElementsByClassName("choiceH");
+        
+        class Quatrain{
+            myLines; 
+            constructor(line1, line2, line3, line4){
+                this.line1 = line1;
+                this.line2 = line2;
+                this.line3 = line3;
+                this.line4 = line4;
+                
+                this.myLines = [line1, line2, line3, line4]
+            }        
+        }
         
         window.onload = function(){
             counter = 0;
+            quatrainCounter = 0;
+            for(i=0; i<sonnets.length; i+=4){
+                quatrains.push(new Quatrain(sonnets[i], sonnets[i+1], sonnets[i+2], sonnets[i+3]));
+            }
+            console.log(quatrains);
             SetText();
         }
   
@@ -63,12 +90,20 @@
             console.log("test");
         }
         
-        function SetText(){    
+        function SetText(){
+            for(i=0; i<4; i++){
+                sonnetText[i].innerHTML = quatrains[quatrainCounter].myLines[i];
+                $(sonnetText[i]).data("pos", i);
+                console.log("Sonnet place " + sonnetText[i] + " Position " + i);
+            }
+            quatrainCounter++;
+            
+            /*
             document.getElementById('h1').innerHTML = sonnets[counter];
             counter++;
             document.getElementById('h2').innerHTML = sonnets[counter];
             counter++;
-            
+            */
         }
         
         function GameEnd(){
@@ -78,23 +113,49 @@
             document.getElementById('narrativeHeader').innerHTML = "Poem Done";
         }
         
-        function AddToMain(pos){
+        function CreateReturnButton(decision){ //include the decision with the button
+            var butt = document.createElement("button");
+            butt.setAttribute("class", "return");
+            butt.innerHTML = "-";
+            butt.addEventListener("click", function(){
+                alert("" + decision);
+            })
+            
+            document.getElementById('progress').append(butt);
+        }
+        
+        
+        $('.sonnetCard').click(function(event){
+            var text = $(event.target).text();
+            var progress =  document.getElementById('progress');
+            //progress.append(lineBreak);
+            console.log($(event.target).data("pos"));
+            
+            //console.log(text);
+        });
+        
+        function AddToMain(e){
+            
+            /*
             if(counter <=28){
                 var lineBreak = document.createElement("br")
                 var progress =  document.getElementById('progress');
                 progress.append(lineBreak);
                 if(pos == 1){
-                    progress.append("" + sonnets[counter-2]);
+                    CreateReturnButton(counter-2); 
+                    progress.append(" " + sonnets[counter-2]);
+                    
                 }
                 if(pos == 2){
-                    progress.append("" + sonnets[counter-1]);
+                    CreateReturnButton(counter-1); 
+                    progress.append(" " + sonnets[counter-1]);
                 }
-
+                
                 SetText();  
             }else{
                 GameEnd();
             }
-                
+            */
         }
         
     </script>
