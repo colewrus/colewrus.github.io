@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="../boot-style.css">
+	<link rel="stylesheet" type="text/css" href="order-style.css">
+    <title>Order Up</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  </head>
+  <body>
+  
+    
+	
+	<div class="container-fluid">
+        <div class="row" id="header">
+            <h1>Order Up</h1>
+        </div>
+        <div class="row">   
+			<div class="buffer" style="background-color:brown">
+			</div>
+			<div id="gamespace">		
+				<br>
+				<span id="order">
+					<h2>Order Name</h2>
+				</span>
+				
+				<p id="indicator"></p>
+				<button id="start">Play Gaem</button>
+				<div class="botButtons">
+					<ul>
+						<li class="answers">Q: Option 1</li>					
+					</ul>
+				</div>
+	
+			</div>
+			<div class="buffer" style="background-color:brown">
+			</div>
+        </div>
+
+
+	</div>
+    
+	<script>
+		
+		function orderObj(name, ingredients){
+			this.name = name;
+			this.ingredients = ingredients;
+		}
+		
+		//Order Object - students created
+		var tortillaStuff = ['flour', 'water', 'butter'];
+		
+		var test = new orderObj('tortilla', tortillaStuff);
+		console.log("Test order " + test.name + " ingredients " + test.ingredients);
+		
+		function populateTicket(order){
+			$('#order > h2').text(order.name); //set the name
+			console.log(order.ingredients.length);
+			
+			for(i=0; i<order.ingredients.length; i++){
+				console.log("should add " + order.ingredients[i]);
+				$('#order').append("<p>" + order.ingredients[i] + "<p>");
+			}
+			
+		}
+		
+		function populateAnswers(){
+			
+		}
+		
+		
+		$(window).on('load', function(){
+			populateTicket(test);
+		});
+		
+		
+	</script>
+	
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>
