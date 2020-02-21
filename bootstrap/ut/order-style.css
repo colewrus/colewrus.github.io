@@ -8,6 +8,7 @@
 	overflow: hidden;
 	height:425px;
 	position: relative;
+	padding:0px 15px;
 }
 
 #gamespace button{
@@ -51,4 +52,23 @@
 	text-align: center;
 	cursor: pointer;
 	margin-top: 2px;
+}
+
+
+.field{
+	padding: 5px 2px;
+	background-color:off-white;
+}
+
+.field p {
+	color: white;
+}
+
+.modifier{
+	width: 15%;
+	height: 15%;
+	border: 1px solid black;
+	bottom: 0;
+	display: inline-block;
+	padding: 1px 5px;
 }

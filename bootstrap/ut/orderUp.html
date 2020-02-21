@@ -32,15 +32,35 @@
 				</span>
 				
 				<p id="indicator"></p>
-				<button id="start">Play Gaem</button>
+				<div class="modifier" id="mod1">
+					Modifier 1
+				</div>
+				<div class="modifier" id="mod1">
+					Modifier 2
+				</div>
+				<div class="modifier" id="mod1">
+					Modifier 3
+				</div>
 				<div class="botButtons">
 					<ul>
-						<li class="answers">Q: Option 1</li>					
+						<li class="components"></li>
+						<li class="components"></li>
+						<li class="components"></li>
+						<li class="components"></li>
 					</ul>
 				</div>
 	
 			</div>
 			<div class="buffer" style="background-color:brown">
+				<div class="field">
+					<p>Add Component</p>
+					<p>Name: <input id="comp_name"></p>
+					<p>Description: <input id="comp_desc"></p>					
+					<p>+ Modifier1 name: <input id="mod1-name"></p>
+					<p>+ Modifier2 name: <input id="mod2-name"></p>
+					<p>+ Modifier3 name: <input id="mod3-name"></p>
+					<button type="button" onclick="getCompValues();">Add</button>
+				</div>
 			</div>
         </div>
 
@@ -49,37 +69,132 @@
     
 	<script>
 		
-		function orderObj(name, ingredients){
-			this.name = name;
-			this.ingredients = ingredients;
+		
+		//Order Object 
+			
+		class orders {	
+			constructor(name){
+				this.name = name;
+				this.components = [];
+			}			
+			
+			addComponent(_ing){
+				this.components.push(_ing);
+			}	
+			
+			//need a way to require modifiers to a component
+			
+			//need to be able to check the component against offered component
 		}
 		
-		//Order Object - students created
-		var tortillaStuff = ['flour', 'water', 'butter'];
 		
-		var test = new orderObj('tortilla', tortillaStuff);
-		console.log("Test order " + test.name + " ingredients " + test.ingredients);
-		
-		function populateTicket(order){
-			$('#order > h2').text(order.name); //set the name
-			console.log(order.ingredients.length);
-			
-			for(i=0; i<order.ingredients.length; i++){
-				console.log("should add " + order.ingredients[i]);
-				$('#order').append("<p>" + order.ingredients[i] + "<p>");
+		class component{
+			constructor(name, description){
+				this.name = name;
+				this.description = description;		
+				this.mods = [];
 			}
 			
+			addMod(modName){				
+				this.mods.push(modName);								
+			}				
+			
+			setMod(val){ //the modifer tool should have a numeric value that will move through the array of the available modifiers for the component				
+				this.name += " [" + mods[val] + "] ";
+				modded = true;
+			}
+		}
+	
+		//have a big bin to choose ingredients from 
+
+		//have a workspace for modded ingredients, maybe limit this to 5 
+		var workspace = new Array();
+		var components = new Array();
+		var ordersList = new Array();
+		
+		
+		function addToWorkspace(obj){
+			if(workspace.length < 5){
+				workspace.push(obj);
+			}else{
+				console.log('workspace full');
+			}
 		}
 		
-		function populateAnswers(){
+
+
+///////// Testing out input of pieces
+		function getCompValues(){
+			let cName = document.getElementById("comp_name").value;
+			let cDesc = document.getElementById("comp_desc").value;
+			let mod1Name = document.getElementById("mod1-name").value;
+			let mod2Name = document.getElementById("mod2-name").value;
+			let mod3Name = document.getElementById("mod3-name").value;	
+			let newComp = new component(cName, cDesc);
+			newComp.addMod(mod1Name);
+			newComp.addMod(mod2Name);
+			newComp.addMod(mod3Name);
+			components.push(newComp);
 			
+			document.getElementById("comp_name").value = '';
+			document.getElementById("comp_desc").value = '';
+			document.getElementById("mod1-name").value = '';
+			document.getElementById("mod2-name").value = '';
+			document.getElementById("mod3-name").value = '';	
 		}
+		
+		
+	
+		
+		var ing = new component('flour', 'finely ground and good for many recipes');
+		
+		
+		var test = new orders('tortilla');
+		test.addComponent(ing);
+
+			
+	
+		
+		window.addEventListener('keydown', function(event){
+			if(event.keyCode == 32){ //space
+				populateComponents();
+			}
+			if(event.keyCode == 49){ //1
+				
+			}			
+		});
 		
 		
 		$(window).on('load', function(){
 			populateTicket(test);
 		});
 		
+		
+		function populateComponents(){
+			let num = 0;
+			$('.components').each(function(){
+				if(num < components.length){
+					$(this).append('<p>' + components[num].name + '</p>');
+					$(this).data(components[num]);
+					num++;
+				}
+
+			});
+		}
+		
+		
+		function populateTicket(order){
+			$('#order > h2').text(order.name); //set the name			
+			
+			for(i=0; i<order.components.length; i++){				
+				$('#order').append("<p>" + order.components[i].name + " - " + order.components[i].description + "<p>");
+			}		
+		}
+		
+		//select a component 
+		$('.components').click(function(){
+			console.log($(this).data());
+		});
 		
 	</script>
 	
