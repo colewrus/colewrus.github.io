@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="../boot-style.css">
+	<link rel="stylesheet" type="text/css" href="wordHero-style.css">
+    <title>Word Hero</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  </head>
+  <body>
+  
+    
+	
+	<div class="container-fluid">
+        <div class="row" id="header">
+            <h1>Word Hero</h1>
+        </div>
+        <div class="row">   
+			<div class="buffer">
+			</div>
+			<div id="gamespace">		
+					<div id="one">
+					</div>
+					
+					<div id="two">
+					</div>
+					
+					
+					<div id='pointer'>
+					</div>
+					
+					
+			</div>
+			<div class="buffer">
+			</div>
+        </div>
+
+	
+	</div>
+    
+    <script> 
+		//falling objects that are words that you catch, they need to meet certain requirements. That can pop up one at a time below or be a part of a quest to catch X number of [prepositions, nouns, country names, historical events, authors, book titles]
+		
+		
+		
+		$(window).on('load', function(){
+			var obj = document.getElementById('two');
+			console.log(obj.getBoundingClientRect());
+			
+			$('#one').data("val", 'preposition');
+			
+			$('#one').animate({
+				top: '+=500'
+			}, 1200, 'linear', function(){
+				console.log("done");
+			});		
+			//dropObjs(); 
+			var one = $('#one')[0];
+			var two = $('#two')[0];
+			/*
+			console.log("pos " + getPosition(one));
+			console.log("pos " + getPosition(two));
+			console.log("compare " + comparePositions(one, two));
+			*/
+		});
+		
+		
+		
+		
+		
+		
+		/*
+		var boxes = setInterval(function(){
+			var one = document.getElementById('one');
+			var two = document.getElementById('two');
+			
+			//var pos1 = one.getBoundingClientRect();
+			//var pos2 = two.getBoundingClientRect();
+			
+			console.log(one.getBoundingClientRect().width);
+			console.log("two " + two.getBoundingClientRect());
+			
+		}, 200);
+		*/
+		
+		
+		//COLLISION https://stackoverflow.com/questions/4230029/jquery-javascript-collision-detection
+		//dud?
+		/*
+		var overlaps = (function(){
+			function getPositions(elem){
+				var pos, width, height;
+				pos = $(elem).position();
+				width = $(elem).width();
+				height = $(elem).height();
+				return [ [pos.left, pos.left + width], [pos.top, pos.top + height] ];
+			}
+			
+			function comparePositions(p1, p2){
+				var r1, r2;
+				r1 = p1[0] < p2[0] ? p1 : p2;
+				r2 = p1[0] < p2[0] ? p2 : p1; 
+				return r1[1] > r2[0] || r1[0] === r2[0];
+			}
+			
+			return function(a,b){
+				var pos1 = getPositions(a),
+					pos2 = getPositions(b);
+				return comparePositions(pos1[0],pos2[0]) && comparePositions(pos1[1], pos2[1]);
+			};
+		})();
+		
+		var check = setInterval(function(){
+			overlaps($('#two')[0], $('#pointer')[0]);
+		}, 10);		
+		*/
+		
+		//COLLISION
+		//https://stackoverflow.com/questions/9392687/jquery-collision
+		
+		function getPosition(box){
+			var $box = $(box);
+			var pos = $box.position();
+			var width = $box.width();
+			var height = $box.height();
+			return [ [pos.left, pos.left + width], [pos.top, pos.top + height] ];
+		}
+		
+		function comparePositions(p1, p2){
+			var x1 = p1[0] < p2[0] ? p1 : p2;
+			var x2 = p1[0] < p2[0] ? p2: p1;
+			return x1[1] > x2[0] || x1[0] === x2[0] ? true : false;
+		}
+		
+		
+		
+/*		
+	   //jsfiddle example to instance and drop multiple objects at a time
+		function dropObjs(){			
+			var $objs = $(), qt = 20;			
+			for(var i=0; i<qt; i++){
+				var $obj = $('<div class="objects"></div>');
+				$obj.css({
+					'left': (Math.random() * $('#gamespace').width()) + 'px',
+					'top': (-Math.random() * $('#gamespace').height()) + 'px'
+				});				
+				$objs = $objs.add($obj);
+			}
+			
+			$('#gamespace').prepend($objs);
+			
+			$objs.animate({
+				top:'500px', 
+				opacity: '0'
+			}, Math.random() + 5000, function(){
+				$(this).remove();
+				if(--qt < 1){
+					dropObjs();
+				}				
+			});		
+		}
+*/   
+	 	//follow mouse pointer in container script.
+	   var mouseX=0, mouseY=0, limitX = $('#gamespace').width(), limitY=$('#gamespace').height();
+	   var xp = 0, yp = 0;
+	   $(document).on('mousemove', function(e){
+			var offset = $('#gamespace').offset();
+			mouseX = Math.min(e.pageX - offset.left, limitX);
+			mouseY = Math.min(e.pageY - offset.top, limitY);
+			if(mouseX < 0) mouseX = 0;
+			if(mouseY < 0) mouseY = 0;		
+	   });
+	   
+	   var loop = setInterval(function(){
+			var point = document.getElementById('pointer');
+			xp += (mouseX - xp)/12;
+			yp += (mouseY - yp)/12;
+			$('#pointer').css({left:xp, top:yp});
+			console.log(point.getBoundingClientRect());
+	   }, 10);
+	   
+	  
+    </script>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>
