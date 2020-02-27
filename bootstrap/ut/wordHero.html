@@ -52,9 +52,14 @@
 		
 		$(window).on('load', function(){
 			var obj = document.getElementById('two');
-			console.log(obj.getBoundingClientRect());
+			console.log("two " + obj.getBoundingClientRect());
+			var twoLeft = $('#two').offset().left
+			var twoRight = twoLeft+$('#two').width();
+			//console.log('two offset left ' + twoLeft);
+			//console.log('two offset right ' + twoRight);
+			//console.log('width ' + $('#two').width());
 			
-			$('#one').data("val", 'preposition');
+			compare($('#two'), $('#pointer'));
 			
 			$('#one').animate({
 				top: '+=500'
@@ -71,8 +76,30 @@
 			*/
 		});
 		
-		
-		
+		//jQuery - mine
+		function compare(obj1, obj2){
+			
+			
+			var oneLeft = obj1.offset().left;
+			var oneRight = oneLeft + obj1.width();
+			var oneTop = obj1.offset().top;
+			var oneBot = oneTop + obj1.height();
+			
+			var twoLeft = obj2.offset().left;
+			var twoRight = twoLeft + obj2.width();
+			var twoTop = obj2.offset().top;
+			var twoBot = twoTop + obj2.height();
+			
+			//console.log('1L ' + oneTop + ' 1R ' + oneBot);
+			//console.log('2L ' + twoTop + ' 2R ' + twoBot);
+			
+			if(oneLeft < twoRight && oneRight > twoLeft){
+				//console.log('jQuery within X bounds' );				
+			}
+			if(oneBot > twoTop && oneTop < twoBot){
+				console.log('jQuery within Y bounds ');
+			}
+		}
 		
 		
 		
@@ -180,11 +207,20 @@
 	   
 	   var loop = setInterval(function(){
 			var point = document.getElementById('pointer');
-			xp += (mouseX - xp)/12;
-			yp += (mouseY - yp)/12;
+			xp += (mouseX - xp)/10;
+			yp += (mouseY - yp)/10;
 			$('#pointer').css({left:xp, top:yp});
-			console.log(point.getBoundingClientRect());
-	   }, 10);
+			//console.log(point.getBoundingClientRect());
+			var twoBox = document.getElementById('two');
+			compare($('#pointer'), $('#two'));
+			/*
+			if(point.getBoundingClientRect().right > two.getBoundingClientRect().left && point.getBoundingClientRect().left < two.getBoundingClientRect().right){
+				console.log('horizontal within');
+			}
+			*/
+	   }, 20);
+	   
+	   
 	   
 	  
     </script>
