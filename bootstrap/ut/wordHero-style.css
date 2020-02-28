@@ -1,14 +1,15 @@
 .buffer{
-	width: 20%;
-	background-color:red;
+	width: 20vw;
+	background-color:#EEE;
+	
 }
 
 #gamespace{
 	width: 60vw;
 	overflow: hidden;
-	height:425px;
+	height:40vw;
 	position: relative;
-	padding:0 2vw;
+	
 }
 
 #gamespace:hover{
@@ -50,3 +51,13 @@
 	background-color:black;
 	border-radius: 1vw;
 }
+
+#paddle{
+	width: 60vw;
+	height: 4vw;
+	position: absolute;
+	bottom: 0;
+	background-color: #5AA;
+}
+
+

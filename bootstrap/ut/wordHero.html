@@ -52,7 +52,10 @@
 					</div>
 					
 					<div id='pointer'>
-					</div>				
+					</div>			
+
+					<div id='paddle'>
+					</div>
 					
 			</div>
 			<div class="buffer">
@@ -133,7 +136,7 @@
 			});
 			
 			var tempLoop = setInterval(function(){
-				compare($('#pointer'), elem);
+				compare($('#paddle'), elem);
 			}, 100);
 			
 		}
@@ -155,6 +158,7 @@
 					//console.log('collision ');	
 					
 					//way to only 'touch' it once
+					//what do we do if they touch?
 					if(!obj2.data("val").touched){
 						console.log(obj2.data("val").touched);
 						obj2.data("val").touched = true;
