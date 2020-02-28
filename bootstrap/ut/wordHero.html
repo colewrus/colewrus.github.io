@@ -26,16 +26,33 @@
 			<div class="buffer">
 			</div>
 			<div id="gamespace">		
+					
 					<div id="one">
 					</div>
 					
 					<div id="two">
 					</div>
 					
-					
-					<div id='pointer'>
+					<div class="fall">
 					</div>
 					
+					<div class="fall">
+					</div>
+					
+					<div class="fall">
+					</div>
+					
+					<div class="fall">
+					</div>
+					
+					<div class="fall">
+					</div>
+					
+					<div class="fall">
+					</div>
+					
+					<div id='pointer'>
+					</div>				
 					
 			</div>
 			<div class="buffer">
@@ -51,114 +68,104 @@
 		
 		
 		$(window).on('load', function(){
-			var obj = document.getElementById('two');
-			console.log("two " + obj.getBoundingClientRect());
-			var twoLeft = $('#two').offset().left
-			var twoRight = twoLeft+$('#two').width();
-			//console.log('two offset left ' + twoLeft);
-			//console.log('two offset right ' + twoRight);
-			//console.log('width ' + $('#two').width());
+		
+		//it doesn't matter, nona this matters
+			$('#one').data("val", {
+				name: 'Achilles',
+				touched: false
+				});
+			$('#two').data("val",{
+				name: 'Ajax',
+				touched: false
+				});
 			
-			compare($('#two'), $('#pointer'));
+			setTimeout(function(){
+				topToBot($('#one'));
+			}, 1000);
+			console.log($('#two').data());
+
+			setBoxes();
 			
-			$('#one').animate({
-				top: '+=500'
-			}, 1200, 'linear', function(){
-				console.log("done");
-			});		
-			//dropObjs(); 
-			var one = $('#one')[0];
-			var two = $('#two')[0];
-			/*
-			console.log("pos " + getPosition(one));
-			console.log("pos " + getPosition(two));
-			console.log("compare " + comparePositions(one, two));
-			*/
+			topToBot($('#two'));
+		//	
+			
+			
 		});
 		
+		function setBoxes(){
+			let iVal = 0;
+			$('.fall').each(function(){
+				$(this).css({
+					width: '9vw',
+					height: '3vw',
+					position: 'absolute', 
+					border: '1px solid black',
+					background: 'yellow',
+					left: 1+(9.5*iVal) +'vw',
+					'border-radius': '5px'
+					
+				});
+				iVal++;
+			});
+		}
+		
+		
+		
+		//ensure animation goes from top to bottom of gamespace
+		function topToBot(elem){
+			
+			var bodyHeight = $('#gamespace').height();
+			var elemOffset = elem.offset().top;
+			var fullLength = bodyHeight;
+			
+			$(elem).animate({
+				top: fullLength			
+			}, 3000, 'linear', function(){				
+				
+				//probs don't need this but sweet little loop here
+				elem.css({
+					top: '0'
+				});
+				
+				elem.data("val").touched = false; //reset a data value so we can reuse this fool
+				topToBot(elem);
+				//end of sweet little loop
+			});
+			
+			var tempLoop = setInterval(function(){
+				compare($('#pointer'), elem);
+			}, 100);
+			
+		}
+		
 		//jQuery - mine
-		function compare(obj1, obj2){
-			
-			
+		function compare(obj1, obj2){			
 			var oneLeft = obj1.offset().left;
 			var oneRight = oneLeft + obj1.width();
 			var oneTop = obj1.offset().top;
-			var oneBot = oneTop + obj1.height();
+			var oneBot = oneTop + obj1.height();			
 			
 			var twoLeft = obj2.offset().left;
 			var twoRight = twoLeft + obj2.width();
 			var twoTop = obj2.offset().top;
-			var twoBot = twoTop + obj2.height();
-			
-			//console.log('1L ' + oneTop + ' 1R ' + oneBot);
-			//console.log('2L ' + twoTop + ' 2R ' + twoBot);
-			
-			if(oneLeft < twoRight && oneRight > twoLeft){
-				//console.log('jQuery within X bounds' );				
-			}
+			var twoBot = twoTop + obj2.height();				
+	
 			if(oneBot > twoTop && oneTop < twoBot){
-				console.log('jQuery within Y bounds ');
-			}
+				if(oneLeft < twoRight && oneRight > twoLeft){
+					//console.log('collision ');	
+					
+					//way to only 'touch' it once
+					if(!obj2.data("val").touched){
+						console.log(obj2.data("val").touched);
+						obj2.data("val").touched = true;
+					}
+					
+				}
+			}			
 		}
 		
 		
-		
-		/*
-		var boxes = setInterval(function(){
-			var one = document.getElementById('one');
-			var two = document.getElementById('two');
-			
-			//var pos1 = one.getBoundingClientRect();
-			//var pos2 = two.getBoundingClientRect();
-			
-			console.log(one.getBoundingClientRect().width);
-			console.log("two " + two.getBoundingClientRect());
-			
-		}, 200);
-		*/
-		
-		
-		//COLLISION https://stackoverflow.com/questions/4230029/jquery-javascript-collision-detection
-		//dud?
-		/*
-		var overlaps = (function(){
-			function getPositions(elem){
-				var pos, width, height;
-				pos = $(elem).position();
-				width = $(elem).width();
-				height = $(elem).height();
-				return [ [pos.left, pos.left + width], [pos.top, pos.top + height] ];
-			}
-			
-			function comparePositions(p1, p2){
-				var r1, r2;
-				r1 = p1[0] < p2[0] ? p1 : p2;
-				r2 = p1[0] < p2[0] ? p2 : p1; 
-				return r1[1] > r2[0] || r1[0] === r2[0];
-			}
-			
-			return function(a,b){
-				var pos1 = getPositions(a),
-					pos2 = getPositions(b);
-				return comparePositions(pos1[0],pos2[0]) && comparePositions(pos1[1], pos2[1]);
-			};
-		})();
-		
-		var check = setInterval(function(){
-			overlaps($('#two')[0], $('#pointer')[0]);
-		}, 10);		
-		*/
-		
-		//COLLISION
-		//https://stackoverflow.com/questions/9392687/jquery-collision
-		
-		function getPosition(box){
-			var $box = $(box);
-			var pos = $box.position();
-			var width = $box.width();
-			var height = $box.height();
-			return [ [pos.left, pos.left + width], [pos.top, pos.top + height] ];
-		}
+
 		
 		function comparePositions(p1, p2){
 			var x1 = p1[0] < p2[0] ? p1 : p2;
@@ -205,19 +212,16 @@
 			if(mouseY < 0) mouseY = 0;		
 	   });
 	   
+	   
 	   var loop = setInterval(function(){
 			var point = document.getElementById('pointer');
 			xp += (mouseX - xp)/10;
 			yp += (mouseY - yp)/10;
 			$('#pointer').css({left:xp, top:yp});
-			//console.log(point.getBoundingClientRect());
+
 			var twoBox = document.getElementById('two');
-			compare($('#pointer'), $('#two'));
-			/*
-			if(point.getBoundingClientRect().right > two.getBoundingClientRect().left && point.getBoundingClientRect().left < two.getBoundingClientRect().right){
-				console.log('horizontal within');
-			}
-			*/
+			//compare($('#pointer'), $('#one'));
+
 	   }, 20);
 	   
 	   
