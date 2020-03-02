@@ -53,11 +53,31 @@
 }
 
 #paddle{
-	width: 60vw;
+	width: 9vw;
 	height: 4vw;
 	position: absolute;
-	bottom: 0;
+	bottom: 1vh;
 	background-color: #5AA;
+    border-radius: 1vw;
 }
+
+#score{
+    position: absolute;
+    top:1vh;
+    right:0; 
+    background-color: rgba(50,50,50, 0.65);
+    height: 4vh;
+    font-size: 3vh;
+    z-index: 5;
+    width: 6vw;
+    border-radius: 3px;
+}
+
+#score p{
+    float: right;
+    color: white;
+}
+
+
 
 

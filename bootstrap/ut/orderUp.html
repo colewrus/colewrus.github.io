@@ -28,6 +28,7 @@
 				<br>
 				<span id="order">
 					<h2>Order Name</h2>
+                    <p></p>
 				</span>
 				
 				<p id="indicator"></p>
@@ -73,10 +74,11 @@
 				<div class="field">
 					<p>Add Component</p>
 					<p>Name: <input id="comp_name"></p>
-					<p>Description: <input id="comp_desc"></p>					
+					<p>Description: <input id="comp_desc"></p>				<!--	
 					<p>+ Modifier1 name: <input id="mod1-name"></p>
 					<p>+ Modifier2 name: <input id="mod2-name"></p>
 					<p>+ Modifier3 name: <input id="mod3-name"></p>
+                    -->
 					<button type="button" onclick="getCompValues();">Add</button>
 				</div>
 			</div>
@@ -87,6 +89,9 @@
     
 	<script>
 		
+        var workspace = new Array(); //needed?
+		var components = new Array();
+		var ordersList = new Array();
 		
 		//Order Object 
 			
@@ -100,37 +105,39 @@
 				comp.setRequiredMod(modVal);
 				this.components.push(comp);
 			}
-			//need a way to require modifiers to a component
-			
-			//need to be able to check the component against offered component
 		}
 		
 		
 		class component{
+            //required, used for the order to set the required value for a component recipe
+            //modVal, the actual value 0,1,2 of the component after modded
+            //modded, has this been modded or not
 			constructor(name, description){
 				this.name = name;
 				this.description = description;		
 				this.mods = [];
+                this.modded = false;
 			}			
 			addMod(modName){				
 				this.mods.push(modName);								
 			}	
 			setMod(val){ //the modifer tool should have a numeric value that will move through the array of the available modifiers for the component				
-				this.name += " [" + mods[val] + "] ";
-				modded = true;
-			}			
-			setRequiredMod(val){//this is for when a component is part of an order and has a required modification
+				if(!modded){
+                     this.name += " [Mod "+ val + "] ";
+				    this.modded = true;
+                    this.modVal = val;
+                }
+               
+			}	
+                   
+			setRequiredMod(val){
 				this.required = val;
 			}
 		}
 	
-		//have a big bin to choose ingredients from 
-
+	
 		//have a workspace for modded ingredients, maybe limit this to 5 
-		var workspace = new Array(); //needed?
-		var components = new Array();
-		var ordersList = new Array();
-		
+
 		
 		function addToWorkspace(obj){
 			if(workspace.length < 5){
@@ -166,6 +173,7 @@
 			//[issue] need to not double populate
 			let num = 0;
 			$('.components').each(function(){
+                $(this).text('');
 				if(num < components.length){
 					$(this).append('<p>' + components[num].name + '</p>');
 					$(this).data(components[num]);
@@ -179,7 +187,7 @@
 			$('#order > h2').text(order.name); //set the name			
 			
 			for(i=0; i<order.components.length; i++){				
-				$('#order').append("<p>" + order.components[i].name + " - " + order.components[i].description + "<p>");
+				$('#order > p').append( ""+ order.components[i].name + " - " + order.components[i].description + "");
 			}		
 		}
 		
