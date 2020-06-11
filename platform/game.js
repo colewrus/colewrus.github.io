@@ -35,6 +35,16 @@ var playerSpawn = new Phaser.Math.Vector2();
 var text;
 var winSound;
 
+//mobile control vars
+var leftButton;
+var rightButton;
+var leftDown = false;//boolean if i tap the left button
+var rightDown = false;//boolean if i tap the right button
+var timer;
+var self = this;
+
+var jumpTimer;
+
 
 function preload(){
     this.load.image('greeble', 'assets/vis/greeble.png');
@@ -59,8 +69,8 @@ function create(){
 //PLATFORMS
     platforms = this.physics.add.staticGroup();
   
-    platforms.create(32*4, this.game.canvas.height-16,'ground').setScale(8, 1).refreshBody();   
-    platforms.create(this.game.canvas.width-32*5, this.game.canvas.height-16, 'ground').setScale(10,1).refreshBody();
+    platforms.create(32*4, this.game.canvas.height-48,'ground').setScale(8, 3).refreshBody();   
+    platforms.create(this.game.canvas.width-32*5, this.game.canvas.height-48, 'ground').setScale(10,3).refreshBody();
 
 //FIREBALL
     var fireball_config = {
@@ -100,7 +110,7 @@ function create(){
        frameRate: 12,
        repeat: -1
    }
-   player = this.physics.add.sprite(32, 270, 'cole');
+   player = this.physics.add.sprite(32, this.game.canvas.height - 150, 'cole');
    player.setBounce(0.2);
    player.setCollideWorldBounds(false);
    player.body.setSize(12,32);
@@ -114,7 +124,7 @@ function create(){
 //Controls
    arrows = this.input.keyboard.createCursorKeys();
 
-//Physics
+//Physics and collision
 
    this.physics.add.collider(player, platforms);
    this.physics.add.overlap(player, fireball, fireballTouch);
@@ -123,6 +133,42 @@ function create(){
 //Win State
    text = this.add.text(300, 50, "You Win");
    text.setVisible(false);
+
+//Mobile inputs
+    var graphics = this.add.graphics();
+   
+
+    leftButton = this.add.rectangle(0 + 25, this.game.canvas.height - 25, 25, 55, 0xc2fff7);
+    rightButton = this.add.rectangle(0 + 60, this.game.canvas.height - 25, 25, 55, 0xc2fff7);
+    leftButton.setInteractive();
+    rightButton.setInteractive();
+
+
+
+    leftButton.on('pointerdown', function(pointer){
+        leftDown = true;
+        console.log("left down " + leftDown);
+    });
+
+    rightButton.on('pointerdown', function(pointer){
+        rightDown = true;
+        console.log("right down " + rightDown);
+    })
+
+    this.input.on('pointerdown', (pointer) => {
+        if(player.body.touching.down && !leftDown && !rightDown){
+            player.setVelocityY(-175);
+            let eventTimer = this.time.delayedCall(500, jumpDecay) 
+        }
+    });
+
+    this.input.on('pointerup', (pointer) => {
+        if(!player.body.touching.down && player.body.velocity.y < 0){           
+            jumpDecay();
+        }
+    })
+
+    console.log(this);
 
 }
 
@@ -134,26 +180,58 @@ function render(){
 }
 
 
-function update(){   
-   
-    if(arrows.left.isDown){
-        player.setVelocityX(-160);
-        player.flipX = true;
-    }else if(arrows.right.isDown){
-        player.setVelocityX(160);
-        player.flipX = false;   
-    }else{
-        player.setVelocityX(0);
-    }
-  
-    if(arrows.up.isDown && player.body.touching.down){   
-        player.setVelocityY(-275);
-        let timedEvent = this.time.delayedCall(500, jumpDecay)
-    }
+function update(){       
 
-    if(!player.body.touching.down && arrows.up.isUp && player.body.velocity.y < 0){
-        jumpDecay();
+
+
+
+    if(this.input.activePointer.isDown){
+        // if(player.body.touching.down){
+        //     player.setVelocityY(-175);
+        //     let timedEvent = this.time.delayedCall(500, jumpDecay) 
+        // }
+        if(leftDown){
+            player.setVelocityX(-160);
+            player.flipX = true;
+            console.log("left held down");
+        }else if(rightDown){
+            player.setVelocityX(160);
+            player.flipX = false; 
+            console.log("right held down");
+        }        
+    }else{
+        // if(!player.body.touching.down && player.body.velocity.y < 0)
+        //     jumpDecay();
+        if(leftDown || rightDown){           
+            leftDown = false;
+            rightDown = false;  
+            player.setVelocityX(0);
+        }
     }
+    
+    
+
+    // console.log(this.input.activePointer.x);
+
+//Keyboard contorls
+    // if(arrows.left.isDown){
+    //     player.setVelocityX(-160);
+    //     player.flipX = true;
+    // }else if(arrows.right.isDown){
+    //     player.setVelocityX(160);
+    //     player.flipX = false;   
+    // }else{
+    //     player.setVelocityX(0);
+    // }
+  
+    // if(arrows.up.isDown && player.body.touching.down){   
+    //     player.setVelocityY(-275);       
+    //     let timedEvent = this.time.delayedCall(500, jumpDecay)
+    // }
+
+    // if(!player.body.touching.down && arrows.up.isUp && player.body.velocity.y < 0){
+    //     jumpDecay();
+    // }
  
 
     checkPlayerOOB(player);     
