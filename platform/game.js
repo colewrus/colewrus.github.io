@@ -19,6 +19,8 @@ var config = {
         create: create,
         render: render,
         update: update        
+    },input:{
+        activePointers: 2,
     },
     backgroundColor: "#4488AA",
 };
