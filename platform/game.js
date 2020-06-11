@@ -170,7 +170,7 @@ function create(){
         }
     })
 
-    console.log(this);
+    console.log(this.input.pointer1 , this.input.pointer2);
 
 }
 
@@ -187,7 +187,7 @@ function update(){
 
 
 
-    if(this.input.activePointer.isDown){
+    if(this.input.pointer1.isDown || this.input.pointer2.isDown){
         // if(player.body.touching.down){
         //     player.setVelocityY(-175);
         //     let timedEvent = this.time.delayedCall(500, jumpDecay) 
