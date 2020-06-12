@@ -19,8 +19,6 @@ var config = {
         create: create,
         render: render,
         update: update        
-    },input:{
-        activePointers: 2,
     },
     backgroundColor: "#4488AA",
 };
@@ -46,6 +44,7 @@ var timer;
 var self = this;
 
 var jumpTimer;
+var debugText;
 
 
 function preload(){
@@ -58,6 +57,9 @@ function preload(){
     //audio
     this.load.audio('bkg', 'assets/audio/harp_bourree.mp3');
     this.load.audio('win', 'assets/audio/trumpet_1.mp3');
+
+    //UI
+    this.load.image('arrow', 'assets/vis/arrow.png');
 }
 
 
@@ -99,9 +101,8 @@ function create(){
        yoyo: true,
        flipX: true,
    })
-//COIN
-  
-    var coin = this.physics.add.sprite(this.game.canvas.width-32, this.game.canvas.height - 75, 'coinPNG');
+//COIN  
+    var coin = this.physics.add.sprite(this.game.canvas.width-32, this.game.canvas.height - 175, 'coinPNG');
     coin.body.setAllowGravity(false);
     coin.body.setCircle(11,5,5);
 
@@ -120,7 +121,7 @@ function create(){
    player_anim = this.anims.create(player_config);
    player.anims.load('run');
    player.anims.play('run');
-   playerSpawn.set(32, 270);
+   playerSpawn.set(player.body.x, player.body.y);
 
 
 //Controls
@@ -137,14 +138,28 @@ function create(){
    text.setVisible(false);
 
 //Mobile inputs
-    var graphics = this.add.graphics();
-   
 
-    leftButton = this.add.rectangle(0 + 25, this.game.canvas.height - 25, 25, 55, 0xc2fff7);
-    rightButton = this.add.rectangle(0 + 60, this.game.canvas.height - 25, 25, 55, 0xc2fff7);
+    game.input.addPointer();
+    game.input.addPointer();  
+    debugText = this.add.text(10, 10, 'input',{ font: '16px Courier', fill: '#00ff00' });
+
+    //duck it big jump button
+    var jumpButton = this.add.rectangle(this.game.canvas.width*0.65, this.game.canvas.height/2, this.game.canvas.width*0.75, this.game.canvas.height, 0x000000, 0);
+    jumpButton.setInteractive();
+
+    //buttons are large for easier tap
+    leftButton = this.add.rectangle(50, this.game.canvas.height/2, 100, this.game.canvas.height, 0xc2fff7, 0);
+    rightButton = this.add.rectangle(150, this.game.canvas.height/2, 100, this.game.canvas.height, 0xc2fff7, 0);
+
     leftButton.setInteractive();
     rightButton.setInteractive();
-
+    
+   //the arrows, just visual no interaction
+    var leftArrow = this.add.image(50, this.game.canvas.height - 32, 'arrow').setScale(2,2);
+    var rightArrow = this.add.image(150, this.game.canvas.height - 32, 'arrow').setScale(2,2);
+    rightArrow.flipX = true;
+    this.add.line(100, this.game.canvas.height - 32, 0, 0, 0, 50, 0xffffff);
+ 
 
 
     leftButton.on('pointerdown', function(pointer){
@@ -157,63 +172,59 @@ function create(){
         console.log("right down " + rightDown);
     })
 
-    this.input.on('pointerdown', (pointer) => {
-        if(player.body.touching.down && !leftDown && !rightDown){
+
+    jumpButton.on('pointerdown', (pointer) => {
+        console.log('jump button');
+        if(player.body.touching.down ){ //using these booleans doesn't work but we need to exempt the buttons           
             player.setVelocityY(-175);
             let eventTimer = this.time.delayedCall(500, jumpDecay) 
         }
     });
 
-    this.input.on('pointerup', (pointer) => {
-        if(!player.body.touching.down && player.body.velocity.y < 0){           
-            jumpDecay();
-        }
+    jumpButton.on('pointerup', function(pointer){
+        jumpDecay();
     })
-
-    console.log(this.input.pointer1 , this.input.pointer2);
-
 }
 
 // ----END OF CREATE
 
 function render(){
     game.debug.inputInfo(32, 32);
-    game.debug.pointer(game.input.activePointer);
+
 }
 
 
 function update(){       
 
+    debugText.setText([
+        'mousePointer ' + this.input.mousePointer.isDown,
+        'pointer1 ' + this.input.pointer1.isDown,
+        'pointer2 ' + this.input.pointer2.isDown
+    ]);
 
-
-
-    if(this.input.pointer1.isDown || this.input.pointer2.isDown){
-        // if(player.body.touching.down){
-        //     player.setVelocityY(-175);
-        //     let timedEvent = this.time.delayedCall(500, jumpDecay) 
-        // }
-        if(leftDown){
+    if(this.input.mousePointer.isDown || this.input.pointer1.isDown || this.input.pointer2.isDown){       
+       if(leftDown){
             player.setVelocityX(-160);
             player.flipX = true;
-            console.log("left held down");
+           
         }else if(rightDown){
             player.setVelocityX(160);
             player.flipX = false; 
-            console.log("right held down");
-        }        
-    }else{
-        // if(!player.body.touching.down && player.body.velocity.y < 0)
-        //     jumpDecay();
+          
+        }  
+    }else{        
         if(leftDown || rightDown){           
             leftDown = false;
             rightDown = false;  
             player.setVelocityX(0);
         }
     }
+
+
     
     
 
-    // console.log(this.input.activePointer.x);
+  
 
 //Keyboard contorls
     // if(arrows.left.isDown){
@@ -239,8 +250,7 @@ function update(){
     checkPlayerOOB(player);     
 }
 
-function jumpDecay(){
-    console.log("j decay");
+function jumpDecay(){    
     player.setVelocityY(0);
 }
 
