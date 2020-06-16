@@ -46,6 +46,7 @@ var self = this;
 var jumpTimer;
 var debugText;
 
+var worldHeight;
 
 function preload(){
     this.load.image('greeble', 'assets/vis/greeble.png');
@@ -60,10 +61,22 @@ function preload(){
 
     //UI
     this.load.image('arrow', 'assets/vis/arrow.png');
+
+    //Shakespeare
+    this.load.image('globe', 'assets/vis/globe-1.png');
+    this.load.image('old-bridge', 'assets/vis/old-london-bridge.jpg');
 }
 
 
 function create(){       
+    this.cameras.main.setBounds(0,0, this.game.canvas.width*4, this.game.canvas.height * 2);
+    this.physics.world.setBounds(0,0, this.game.canvas.width*4, this.game.canvas.height * 2);
+
+    worldHeight = this.physics.world.bounds.height;
+//Backgrounds 
+this.add.image(720, this.physics.world.bounds.height-(48+118), 'globe').setScale(0.5,0.5);
+this.add.image((32*48) + 480, this.physics.world.bounds.height-(48+80), 'old-bridge');
+
 //AUDIO
     var bkgMusic = this.sound.add('bkg', {volume: 0.12, loop: true});
     bkgMusic.play();
@@ -73,8 +86,12 @@ function create(){
 //PLATFORMS
     platforms = this.physics.add.staticGroup();
   
-    platforms.create(32*4, this.game.canvas.height-48,'ground').setScale(8, 3).refreshBody();   
-    platforms.create(this.game.canvas.width-32*5, this.game.canvas.height-48, 'ground').setScale(10,3).refreshBody();
+    platforms.create(32*24, this.physics.world.bounds.height-48,'ground').setScale(48, 3).refreshBody();   //1 
+    // platforms.create(this.game.canvas.width-32*5, this.physics.world.bounds.height-48, 'ground').setScale(10,3).refreshBody(); //2
+    console.log("Physics world bounds " , this.physics.world.bounds);
+
+//World bkg 
+
 
 //FIREBALL
     var fireball_config = {
@@ -102,7 +119,7 @@ function create(){
        flipX: true,
    })
 //COIN  
-    var coin = this.physics.add.sprite(this.game.canvas.width-32, this.game.canvas.height - 175, 'coinPNG');
+    var coin = this.physics.add.sprite(this.game.canvas.width-32, this.physics.world.bounds.height - 175, 'coinPNG');
     coin.body.setAllowGravity(false);
     coin.body.setCircle(11,5,5);
 
@@ -113,19 +130,21 @@ function create(){
        frameRate: 12,
        repeat: -1
    }
-   player = this.physics.add.sprite(32, this.game.canvas.height - 150, 'cole');
+ 
+   player = this.physics.add.sprite(32, this.physics.world.bounds.height - 150, 'cole');
    player.setBounce(0.2);
    player.setCollideWorldBounds(false);
    player.body.setSize(12,32);
-
+//    player.body.setAllowGravity(false); //get rid of me once done testing
    player_anim = this.anims.create(player_config);
    player.anims.load('run');
    player.anims.play('run');
    playerSpawn.set(player.body.x, player.body.y);
 
+   //camera to follow player
+   this.cameras.main.startFollow(player, true, 0.1, 0.1, 15, 50);
 
-//Controls
-   arrows = this.input.keyboard.createCursorKeys();
+
 
 //Physics and collision
 
@@ -137,52 +156,61 @@ function create(){
    text = this.add.text(300, 50, "You Win");
    text.setVisible(false);
 
+
+//Desktop Controller
+    arrows = this.input.keyboard.createCursorKeys();
+
 //Mobile inputs
 
     game.input.addPointer();
     game.input.addPointer();  
     debugText = this.add.text(10, 10, 'input',{ font: '16px Courier', fill: '#00ff00' });
 
-    //duck it big jump button
+    //duck it big jump button that takes up most the screen
     var jumpButton = this.add.rectangle(this.game.canvas.width*0.65, this.game.canvas.height/2, this.game.canvas.width*0.75, this.game.canvas.height, 0x000000, 0);
     jumpButton.setInteractive();
-
+    jumpButton.setScrollFactor(0);
     //buttons are large for easier tap
     leftButton = this.add.rectangle(50, this.game.canvas.height/2, 100, this.game.canvas.height, 0xc2fff7, 0);
     rightButton = this.add.rectangle(150, this.game.canvas.height/2, 100, this.game.canvas.height, 0xc2fff7, 0);
 
     leftButton.setInteractive();
     rightButton.setInteractive();
+
+    leftButton.setScrollFactor(0);
+    rightButton.setScrollFactor(0);
     
    //the arrows, just visual no interaction
     var leftArrow = this.add.image(50, this.game.canvas.height - 32, 'arrow').setScale(2,2);
     var rightArrow = this.add.image(150, this.game.canvas.height - 32, 'arrow').setScale(2,2);
     rightArrow.flipX = true;
-    this.add.line(100, this.game.canvas.height - 32, 0, 0, 0, 50, 0xffffff);
- 
-
-
+    var arrowLine = this.add.line(100, this.game.canvas.height - 32, 0, 0, 0, 50, 0xffffff);
+   
+   //camera stuph
+    leftArrow.setScrollFactor(0);
+    rightArrow.setScrollFactor(0);
+    arrowLine.setScrollFactor(0);
+   
+   //mobile button behavior
     leftButton.on('pointerdown', function(pointer){
         leftDown = true;
-        console.log("left down " + leftDown);
     });
 
     rightButton.on('pointerdown', function(pointer){
         rightDown = true;
-        console.log("right down " + rightDown);
     })
-
 
     jumpButton.on('pointerdown', (pointer) => {
         console.log('jump button');
-        if(player.body.touching.down ){ //using these booleans doesn't work but we need to exempt the buttons           
+        if(player.body.touching.down){ //using these booleans doesn't work but we need to exempt the buttons           
             player.setVelocityY(-175);
-            let eventTimer = this.time.delayedCall(500, jumpDecay) 
+            let eventTimer = this.time.delayedCall(500, jumpDecay)         
         }
     });
 
     jumpButton.on('pointerup', function(pointer){
-        jumpDecay();
+        if(player.body.velocity.y <0)
+            jumpDecay();
     })
 }
 
@@ -195,12 +223,7 @@ function render(){
 
 
 function update(){       
-
-    debugText.setText([
-        'mousePointer ' + this.input.mousePointer.isDown,
-        'pointer1 ' + this.input.pointer1.isDown,
-        'pointer2 ' + this.input.pointer2.isDown
-    ]);
+;
 
     if(this.input.mousePointer.isDown || this.input.pointer1.isDown || this.input.pointer2.isDown){       
        if(leftDown){
@@ -220,42 +243,51 @@ function update(){
         }
     }
 
-
-    
-    
-
   
 
 //Keyboard contorls
-    // if(arrows.left.isDown){
-    //     player.setVelocityX(-160);
-    //     player.flipX = true;
-    // }else if(arrows.right.isDown){
-    //     player.setVelocityX(160);
-    //     player.flipX = false;   
+    if(arrows.left.isDown){
+        player.setVelocityX(-160);
+        player.flipX = true;
+    }else if(arrows.right.isDown){
+        player.setVelocityX(160);
+        player.flipX = false;   
+    }else{
+        player.setVelocityX(0);
+    }
+
+//Floaty controls for testing
+    // if(arrows.up.isDown){
+    //     player.setVelocityY(-160);
+    // }else if(arrows.down.isDown){
+    //     player.setVelocityY(160);
     // }else{
-    //     player.setVelocityX(0);
+    //     player.setVelocityY(0);
     // }
+//end floaty
   
-    // if(arrows.up.isDown && player.body.touching.down){   
-    //     player.setVelocityY(-275);       
-    //     let timedEvent = this.time.delayedCall(500, jumpDecay)
-    // }
+    if(arrows.up.isDown && player.body.touching.down){   
+        player.setVelocityY(-275);       
+        let timedEvent = this.time.delayedCall(500, jumpDecay)
+    }
 
-    // if(!player.body.touching.down && arrows.up.isUp && player.body.velocity.y < 0){
-    //     jumpDecay();
-    // }
+    if(!player.body.touching.down && arrows.up.isUp && player.body.velocity.y < 0){
+        jumpDecay();
+    }
  
+    
 
-    checkPlayerOOB(player);     
+
+   checkPlayerOOB(player);     
 }
 
 function jumpDecay(){    
-    player.setVelocityY(0);
+    if(player.body.velocity.y < 0)
+        player.setVelocityY(0);
 }
 
 function checkPlayerOOB(p){
-    if(p.getBounds().y > this.game.canvas.height){
+    if(p.getBounds().y > worldHeight){
         console.log("Player off screen");
         p.setPosition(playerSpawn.x, playerSpawn.y);
     }
