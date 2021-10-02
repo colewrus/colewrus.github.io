@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="icon" href="img/colewrus_co.png">
+    <link rel="stylesheet" href="style.css">
+	
+	
+    <title>Bracket Gen - Colewrus & Co.</title>
+    </head>
+    <body>
+		<div id="left-nav">			
+			<h1>Cole <br /> Wrampelmeier</h1>
+			<p>If I don't know<br /> I'll find out</p>
+			<ul>
+				<a href="index.html"><li>Games</li></a>
+				<a href="media.html"><li>Other Media</li></a>
+				<a href="writing.html"><li>Writing</li></a>
+				<a href="#"><li>Resume</li></a>
+			</ul>
+			<p>Contact me at <a href="mailto:cole@taglabs.org">cole@taglabs.org</a></p>
+		</div>
+		<div id="main-body">
+            <br />			
+            <h1>BRAK!</h1>
+            <p>Do you organize tournaments for potentially hundreds of participants?</p>
+            <p>Overwhelmed by the possibility you have too many players registered?</p>
+            <p>Just trying to get a ballpark estimate of how long your tournament will be?</p>
+            <p>Worry no more! With BRAK! you can meet this incredibly specific need.</p>
+            <h2>Direct Elimnation Restricted by Time <br />D.E.R.T.</h2>
+			<p>Here is where we have the inputs for the Formula [Matches] = ((Time)/tpM)/2)*C</p>
+            <p> Time Available (minutes): <input type="text" id="Time" name="Time" /><br />
+				Time per Match (minutes): <input type="text" id="tpM" name="tpM" /><br />
+				Consoles available: <input type="text" id="consoles" name="consoles" /><br />
+				Players per Game: <input type="text" id="ppg" name="ppg" /><br />
+             <button onclick="ButtonBrak()">Generate!</button> 
+            </form>
+            </p>
+			<p id="mresult"></p>
+            <canvas id="bracketDraw" width="850px" height="350px">
+            </canvas>
+            <script>
+
+                function getRandomColor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+                function ButtonBrak() {
+                    console.log("button brak");
+                    var canvas = document.getElementById("bracketDraw");
+                    const context = canvas.getContext("2d");
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    var T = document.getElementById("Time").value;
+                    var tpM = document.getElementById('tpM').value;
+                    var C = document.getElementById('consoles').value;
+					var matchCount = T/tpM;
+                    //runMarch(T, tpM, C, 2);
+					brak(T, tpM, C, matchCount, 1, 1, 1);
+                }
+				
+				function runMarch(time, tpm, consoles, ppg){
+					var players = [2, 2];
+					
+					var playerSum = 0;
+					var rounds = time/tpm;
+					console.log("rounds " + rounds);
+					for(var i=0; i < rounds; i++){						
+						if(i>2){
+							players.push(3);							
+						}
+					}
+					console.log("max players: " + players[players.count]);
+					
+				}
+
+
+                function eliminate(time, tpm, stations) {
+                    /*
+                    var matchTime = 0;
+                    var matches = 0;
+
+                    for (var i = 0; i < 3; i++) {
+                        var round = matches * tpm;
+                        matches += Math.floor((((time - (matches * tpm)) / tpm) / 2) * stations);
+                        matchTime += matches * tpm;
+                    }
+                    return matches+1;
+                    */
+                    
+                }
+
+                function mod(n, m) {
+                    return ((n % m) + m) % m;
+                }
+
+                function brak(time, tpm, stations, matches, currentRound, row, semi) {
+                    var m = matches;
+                    var matchTime;
+                    var tempMatch
+                    matchTime = matches * tpm;
+
+                    //drawing vars 
+                    var round = currentRound; //used for text population
+                    var canvas = document.getElementById("bracketDraw");
+                    var ctx = canvas.getContext("2d"); //variable used to draw the boxes
+                    var cFont = canvas.getContext("2d"); //variable used for round text
+                    cFont.font = "15px Georgia";
+                    
+                    var rowTrack = row; //actually tracks the colum for offset
+                    var colum = 0; //actually tracks the row for offset
+                    var spacer = 50;
+                    var modGuy;
+                    var semifinal = semi;
+                    modGuy = m % 2;
+					console.log("match time: " + matchTime);
+                    document.getElementById("mresult").innerHTML = "Total Matches to Play: " + m;
+                    console.log("mod guy: " + modGuy);
+                    ctx.fillStyle = getRandomColor();
+                    if (matchTime < time && semi < 2) {
+
+                        tempMatch = (time - (matches * tpm)) / tpm;
+                        //console.log("modulo: " + modGuy + " and tempMatch " + tempMatch);
+                        
+                        //console.log("Matches played: " + m + " if floored: " + Math.floor(tempMatch / 2));
+                        //tempMatch = Math.ceil(tempMatch / 2);
+                  
+                        if (modGuy == 1) {
+                            tempMatch = Math.floor(tempMatch / 2) * stations;
+                            if (tempMatch == 0)
+                                tempMatch = 1;                            
+                        } else {
+                            tempMatch = Math.ceil(tempMatch / 2) * stations;
+                        } 
+
+                        for (var i = 0; i < tempMatch; i++) {                           
+                            if (colum * spacer > (canvas.height - spacer * 2)) {
+                                colum = 0;
+                                rowTrack += 1;
+                            }
+                            
+                            ctx.fillRect(rowTrack * (spacer + 3), 50 + (colum * (spacer + 1)), spacer, spacer);
+                           
+                            colum += 1;
+                         
+                        }
+                        cFont.fillText("Round " + round, (2*rowTrack) * (spacer + 3) / 2, spacer / 2);
+                       
+                        cFont.fillText("Matches: " + tempMatch, (2 * rowTrack) * (spacer + 3) / 2, 15 + (spacer / 2))
+                        
+                        if (tempMatch == 1) {
+                            console.log("round: " + round);
+                            console.log("hey they're off by one");
+                            semifinal += 1;
+                        }
+                        tempMatch += m;
+              
+                    
+                        rowTrack += 2;
+                        round += 1;
+                        
+                        brak(time, tpm, stations, tempMatch, round, rowTrack, semifinal);
+                    } 
+                    
+                    
+                }
+
+
+
+                function minuteCalc() {
+                    var T = document.getElementById("Time").value;
+                    var tpM = document.getElementById('tpM').value;
+                    var C = document.getElementById('consoles').value;
+                    var M = eliminate(T, tpM, C);//Math.ceil(((T / tpM) / 2) * C); //get the total matches for round 1
+                    //eliminate(T, tpM, C);
+                    document.getElementById("mresult").innerHTML = "Total Matches to Play: ";
+                
+                    var endDraw = false; //used to stop the while loop
+                    var round = 1; //used for text population
+                    var canvas = document.getElementById("bracketDraw"); 
+                    var ctx = canvas.getContext("2d"); //variable used to draw the boxes
+                    var cFont = canvas.getContext("2d"); //variable used for round text
+                    cFont.font = "15px Georgia";
+                    cFont.fillStyle = "black";
+                    var rowTrack = 0; //actually tracks the colum for offset
+                    var colum = 0; //actually tracks the row for offset
+                    var spacer = 50; 
+                    const context = canvas.getContext("2d");
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    for(i=0; i<Math.ceil(M/2); i++){
+                        if (colum*spacer > (canvas.height-spacer*2)) {
+                            colum = 0;
+                            rowTrack += 1;                                                       
+                        }
+
+                         ctx.fillStyle = "blue";
+                         ctx.fillRect(rowTrack * (spacer+3), 50+(colum*(spacer+1)), spacer, spacer);
+                         colum += 1;
+                    }
+
+                    cFont.fillText("Round " +round, (rowTrack*spacer)/2, spacer/2);
+                    cFont.fillText("Matches: "+M, -13+(rowTrack*spacer)/2, 15+(spacer/2))
+                    rowTrack += 1;
+                                           
+                    M = Math.floor(M / 2);
+                    M = Math.floor(M / 2);
+                    while (!endDraw) {
+                        if (M > 1) {
+                            round += 1;
+                            rowTrack += 1;
+                            colum = 0;
+                            cFont.fillStyle = "black";
+                            cFont.fillText("Round "+round, 26+(rowTrack*spacer), spacer/2);
+                            cFont.fillText("Matches: "+M, 20+(rowTrack*spacer), 15+(spacer/2))
+                            var fillColor = getRandomColor();
+
+                            for (j = 0; j < M; j++) {                                
+
+                                if (colum * spacer > (canvas.height - spacer * 2)) {
+                                    colum = 0;
+                                    rowTrack += 1;
+                                }
+                                ctx.fillStyle = fillColor;
+                                ctx.fillRect(rowTrack*(spacer+3), 50+(colum*(spacer+1)), spacer, spacer);
+                                colum += 1;
+                            }
+                            
+                            
+                            rowTrack += 1;
+                            
+                            M = Math.floor(M / 2);
+                        } else {
+                            colum = 0;
+                            rowTrack += 1;
+                            round += 1;
+                            ctx.fillStyle = "#e29300";
+                            ctx.fillRect(rowTrack * (spacer + 3), 50 + (colum * (spacer + 1)), spacer, spacer);
+                            cFont.font = "25px Georgia";
+                            cFont.fillStyle = "black";
+                            cFont.fillText("Final", 32 + (rowTrack * spacer), 10+(spacer/2));
+                         
+                            endDraw = true;
+                        }
+                    }     
+
+                }
+            </script>
+        
+		</div>
+    </body>
+	
+</html>
