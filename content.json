@@ -3,9 +3,9 @@
         {
             "id":"000a",
             "card_title": "Humanities.games",
-            "card_content": "",
+            "card_content": "An ongoing project that seeks to help children explore the humanities through games.",
             "category": "games",
-            "page_content":"",
+            "page_content":"An ongoing project that seeks to help children explore the humanities through games. The current goal is to create games that students can fill with their own subjects. Students can use the game like a presentation, to demonstrate what they've learned about a topic. Currently a lot of work has focused on how to deploy the games, I hope to do some more interesting work with the actual design to encourage robust exploration of a topic.",
             "page_image":"",
             "page_player":""
         },
@@ -16,43 +16,45 @@
             "category": "games",
             "page_content":"In my work with TAG Labs we table at various local cons and workshops. It can be hard to split time between entertaining the kids and explaining workshop details to the parents. During Awesome Con in 2016 I used the default assets in Unity to make this very basic tool to make your own platformer. And kids eat it up, each year for awesome con we have other projects we try to entertain kids with but they keep coming back to this little prototype.",
             "page_image":"",
-            "page_player":""            
+            "page_player":"https://colewrus.github.io/makeAplatformer/"            
         },
         {
             "id":"000c",
             "card_title": "Untitled 4",
             "card_content": "I was approached at a fundraiser for TAG and met Russell, he makes music and has a love for the old 8-bit era of games. He offered a few tracks to inspire some mini-games based on the track.",
             "category": "games",
-            "page_content":"",
+            "page_content":"I was approached at a fundraiser for TAG and met Russell, he makes music and has a love for the old 8-bit era of games. He offered a few tracks to inspire some mini-games based on the track. I'm not much of an artist so please excuse the child-like quality. Overall a pretty rough project, learning art/animation and sound blending. Neither really come off but I do really like the track.",
             "page_image":"",
-            "page_player":""
+            "page_player":"https://colewrus.github.io/wUntitled/"         
         },
         {
             "id":"000d",
             "card_title": "Marco Echo",
             "card_content": "Global Game Jam 2017 theme was waves, our team decided to use sound waves and made a 3D runner game. Our wonderful artist whipped up a bat model and I worked on the echo location effect using shaders in Unity.",
             "category": "games",
-            "page_content":"",
+            "page_content":"A progressively difficult 3d runner (flier) following a bat trying to get home before dawn. Eat insects, avoid obstacles, and use echolocation to find the best path back to your cave! Not optimized for mobile. Please be patient, Unity web player takes a moment to load.",
             "page_image":"",
-            "page_player":""
+            "page_player":"https://colewrus.github.io/marcoEcho/",
+            "page_links": [{"linkText": "Game Jam page", "linkURL": "https://v3.globalgamejam.org/2017/games/marco-echo"}]
         },
         {
             "id":"000e",
             "card_title": "Pixel Me",
-            "card_content": "Description",
+            "card_content": "A small character face creator I made that swaps out facial features and hats!",
             "category": "assorted",
-            "page_content":"",
+            "page_content":"A small character face creator I made that swaps out facial features and hats! Made with overlapping canvases, taking a look back at this I should create something to auto-load images from a directory.",
             "page_image":"",
-            "page_player":""
+            "page_player":"https://colewrus.github.io/bootstrap/pixelMe.html"
         },
         {
             "id":"000f",
             "card_title": "Training",
-            "card_content": "Description",
+            "card_content": "Documents and videos from my dayjob where I help university staff with all of our internal software.",
             "category":"assorted",
-            "page_content":"",
+            "page_content":"In my dayjob I create lots of documentation on internal use of our software. I particularly do well with video tutorials, I like to have a full picture of the process, but I also try to accommodate those who prefer a written guide. I mostly use an internal sharepoint site to distribute this material but I've included what is appropriate below in a youtube playlist and links to documents.",            
             "page_image":"",
-            "page_player":""
+            "page_player":"https://www.youtube.com/embed/videoseries?list=PLr5I6QlQlM59aWqJ-4cdHW5jqs_CbUqso",
+            "page_links": [{"linkText": "Doc 1", "linkURL": "#"}]
         }
     ]
 }
