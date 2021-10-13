@@ -1,0 +1,67 @@
+body{
+    font-family: 'Nunito', sans-serif;
+}
+
+#camera-screen{
+    width: 1040px;
+    height: 780px;
+    background-color: #ababab;
+}
+#booth{
+    display: flex;
+}
+
+#control-panel{
+    display: flex;
+    border-radius: 25px;
+    border: 2px solid burlywood;
+    background-color: burlywood;
+    flex-direction: column;
+    width: 350px;
+    align-items: center;
+}
+
+#control-panel div{
+    transition: 1s opacity;
+    opacity:1;
+    margin: 5px 2px;    
+}
+
+#control-panel .rect{
+    display: flex;
+    width: 300px;
+    height: 75px;
+    background-color: darkred;
+    border-radius: 15px;
+    margin: 5px 5px 0 5px;
+    padding: 0 7px;
+    align-items: center;
+    justify-content: center;
+    color:whitesmoke;
+    font-size: 2.5em;  
+}
+
+#control-panel circle{
+
+}
+
+#delay{
+   font-size: 1.2em;
+   display: flex;
+   flex-direction: row;
+ 
+}
+#delay input{
+    font-size: 2em;
+    width: 50px;
+    margin: 0 15px;
+    overflow:hidden;
+}
+
+#film-strip{
+    display: flex;
+    direction: row;
+}
+.snap{
+    width: 125px;
+}
