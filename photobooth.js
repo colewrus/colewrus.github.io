@@ -8,6 +8,7 @@ var startCamera = document.getElementById("start");
 
 var delayInput = document.getElementById("delay");
 var photoCount = 0;
+var boothStarted = false;
 
 delayInput.addEventListener('change',(event) =>{
     delay = event.target.value;
@@ -19,8 +20,8 @@ startCamera.addEventListener("click", function(e) {
        if(this.started === undefined){
             this.started = true;
             fade(this, 0, enableCamera, false);        
-       }else{         
-           snap();
+       }else{  
+          !boothStarted ? snap() : console.log("already snapping");
        }      
     }
 );
@@ -30,24 +31,20 @@ function fade(obj, val, fCallback, bounce){
     obj.style.opacity = val;
     if(fCallback){
         fCallback();
-    }else{
-     
-    }
-       
+    }       
     if(bounce){
         window.setTimeout(function(){
             var bVal = (val > 0) ? 0 : 1;
            
             fade(obj, bVal);
         }, 1100);
-    }else{
-        
     }
 }
 
 
 
-function snap(){    
+function snap(){       
+    boothStarted = true;
     if(photoCount < 3){
         var canvas = document.createElement('canvas');
         var video = document.getElementById("vid");
@@ -58,11 +55,16 @@ function snap(){
             canvas.getContext('2d').drawImage(video,0,0);
                 console.log("Snap\nWidth ", canvas.width);
                 var reel = document.getElementById('film-strip');
-                reel.appendChild(canvas);
+                reel.prepend(canvas);
                 canvas.className = "snap";   
+                download(canvas);
+                setTimeout(()=>{
+                    canvas.classList.add("present");
+                }, 500);
                 photoCount++;
                 setTimeout(snap, 1000);                                 
         }, delay*1000);
+
         stopwatch = delay -1;
         timer.textContent = delay;
         timer.style.opacity = "0.75";
@@ -79,6 +81,7 @@ function snap(){
         }, 1000);                    
     }else{
         console.log("three photos done");
+        boothStarted = false;
     }
     
 
@@ -105,7 +108,14 @@ function updateTimer(){
 //   
 //   }
 
-
+function download(cnvs){
+    // console.log("Should get canvas data ", cnvs.toDataURL());
+    var link = document.createElement('a');
+    link.download = 'download.png';
+    link.href= cnvs.toDataURL();
+    link.click();
+    link.delete;
+}
 
 function enableCamera(){
     navigator.mediaDevices.getUserMedia({

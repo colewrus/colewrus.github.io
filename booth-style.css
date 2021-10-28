@@ -72,11 +72,12 @@ body{
 
 #film-strip{
     display: flex;
-    direction: column;    
-    flex-wrap: wrap;
+    flex-direction: column;
+    
 }
-.snap{
-    width: 170px;
-    margin:1px;
-    flex-grow: 2;
+
+.snap{      
+    border: 1px solid red;   
+    height: 180px;
+    margin: 5px;
 }
