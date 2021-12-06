@@ -1,0 +1,33 @@
+
+#C_pixelMe{
+	border: 1px solid red;
+	position: absolute;
+	z-index: 0;
+	top: 100px;
+	left: 100px;	
+}
+
+#C_hats{
+	border: 2px solid green;
+	position: absolute;
+	z-index: 1;
+	top: 100px;
+	left: 100px;
+}
+
+.canvarea{
+	height: 350px;
+}
+
+.pixelMeCanvas{
+	margin-left: 10px;
+	margin-top: 15px;
+	position: absolute;
+}
+
+.pixObj{
+	width: 65px;
+	display: inline-block;
+	padding:2px;
+	text-align: center;
+}

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom Style -->
+	<link rel="stylesheet" type="text/css" href="pixMe-style.css">
+    <title>Pixel.me</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+  
+    
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm canvarea"> <!-- Canvarea = canvas area -->
+				
+				<h1>Pixel Me</h1>
+				<canvas class="pixelMeCanvas" id="faceCanvas" width="320" height="320">Cannot load</canvas>
+				<canvas class="pixelMeCanvas" id="eyeCanvas" width="320" height="320">Eyes no load</canvas>
+				<canvas class="pixelMeCanvas" id="mouthCanvas" width="320" height="320">Mouth no load</canvas>
+				<canvas class="pixelMeCanvas" id="noseCanvas" width="320" height="320">Nose no load</canvas>
+				<canvas class="pixelMeCanvas" id="hairCanvas" width="320" height="320">Hair no load</canvas>
+					
+						
+					
+				
+			</div>
+			<div class="col-sm">
+				
+			
+				<br />
+				<p><button id="faceSub">-</button><span class="pixObj">Head</span><button id="faceAdd">+</button></p>
+				<p><button id="noseSub">-</button><span class="pixObj">Nose</span><button id="noseAdd">+</button></p>
+				<p><button id="mouthSub">-</button><span class="pixObj">Mouth</span><button id="mouthAdd">+</button></p>
+				<p><button id="eyeSub">-</button><span class="pixObj">Eyes</span><button id="eyeAdd">+</button></p>
+				<p><button id="hairSub">-</button><span class="pixObj">Hair</span><button id="hairAdd" onClick="">+</button></p>
+				
+		
+			</div>
+		
+		
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	<script>
+
+		var faceCanvas = document.getElementById('faceCanvas');
+		var faceCtx = faceCanvas.getContext('2d');
+		
+		var eyeCanvas = document.getElementById('eyeCanvas');
+		var eyeCtx = eyeCanvas.getContext('2d');
+		
+		var mouthCanvas = document.getElementById('mouthCanvas');
+		var mouthCtx = mouthCanvas.getContext('2d');
+		
+		var noseCanvas = document.getElementById('noseCanvas');
+		var noseCtx = noseCanvas.getContext('2d');
+		
+		var hairCanvas = document.getElementById('hairCanvas');
+		var hairCtx = hairCanvas.getContext('2d');
+		
+		var	baseImg = new Image();
+
+		var faces = new Array();
+		var eyes = new Array();
+		var mouths = new Array();
+		var noses = new Array();
+		var hairs = new Array();
+		
+		var i_face = 0;
+		var i_nose = 0;
+		var i_hair = 0;
+		var i_eyes = 0;
+		var i_mouth = 0;
+		
+	   hairCanvas.onload = function(){
+    
+       }
+		
+		window.onload = function(){
+			//init	
+			baseImg.crossOrigin = "Anonymous";
+			baseImg.src = 'https://colewrus.github.io/img/abolido.png';
+			initFaces();
+			initEyes();
+			initMouth();
+			initNose();
+			initHair();
+			/*
+			
+			*/
+			
+			faceCtx.drawImage(baseImg, 0, 0);
+      
+            hairs[2].onload = function(){
+                console.log("face 2 loaded");
+                cycle(faces, '+', faceCtx);
+                cycle(eyes, '+', eyeCtx);
+                cycle(mouths, '+', mouthCtx);
+			    cycle(noses, '+', noseCtx);
+                cycle(hairs, '+', hairCtx);
+            }
+		}
+		
+		
+		function initHair(){
+			hairs[0] = new Image();
+			hairs[0].src = 'img/hair-192.png';
+			
+			hairs[1] = new Image();
+			hairs[1].src = 'img/hair2-192.png';
+			
+			hairs[2] = new Image();
+			hairs[2].src = 'img/hair3-192.png';
+		}
+		
+		function initFaces(){		
+			faces[0] = new Image();
+			faces[0].src = 'img/faces3-192.png';
+			
+			faces[1] = new Image();
+			faces[1].src = 'img/faces2-192.png';
+			
+			faces[2] = new Image();
+			faces[2].src = 'img/faces-192.png';
+		
+		}
+		
+		function initNose(){
+			noses[0] = new Image();
+			noses[0].src = 'img/nose-192.png';
+			
+			noses[1] = new Image();
+			noses[1].src = 'img/nose2-192.png';
+			
+			noses[2] = new Image();
+			noses[2].src = 'img/nose3-192.png';
+		}
+		
+		function initEyes(){
+			eyes[0] = new Image();
+			eyes[0].src = 'img/eyes.png';
+			
+			eyes[1] = new Image();
+			eyes[1].src = 'img/eyes2.png';
+			
+			eyes[2] = new Image();
+			eyes[2].src = 'img/eyes3.png';
+	
+		}
+		
+		function initMouth(){
+			mouths[0] = new Image();
+			mouths[0].src = 'img/mouth-192.png';
+			
+			mouths[1] = new Image();
+			mouths[1].src = 'img/mouth2-192.png';
+		}
+		
+		function cycle(arr, val, context){ //array, up/down
+			var pos;
+			
+			if(arr == faces)	
+				pos = i_face;
+			if(arr == eyes)
+				pos = i_eyes;
+			if(arr == mouths)
+				pos = i_mouth;
+			if(arr == noses)
+				pos = i_nose;
+			if(arr == hairs)
+				pos = i_hair;
+				
+			
+			if(val == '+'){
+				
+				if((pos+1) < arr.length){
+					pos++;	
+				}else{
+					pos = 0;
+				}
+			}
+			
+			if(val == '-'){
+				if((pos-1) < 0){
+					pos = arr.length-1;
+				}else{
+					pos--;
+				}
+			}
+			if(arr == faces)
+				i_face = pos;
+			if(arr == eyes)
+				i_eyes = pos;
+			if(arr == mouths)
+				i_mouth = pos;
+			if(arr == noses)
+				i_nose = pos;
+			if(arr == hairs)
+				i_hair = pos;
+			
+			context.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
+			
+			context.drawImage(arr[pos], 0, 0);
+            console.log("cycle complete");
+
+		}
+		
+		
+		
+		function drawImage(img){			
+			faceCtx.drawImage(faces[0], 0, 0);
+		}
+		
+		function color(){
+			console.log('should run');
+			var imgData = faceCtx.getImageData(0,0, 320, 320);
+			var inputs = document.getElementById('params');
+			console.log(inputs["xSpot"].value);
+		}
+		
+
+		
+		
+		//HEY LISTEN!		
+		document.getElementById('faceAdd').addEventListener("click", function(){
+			cycle(faces, '+', faceCtx);
+		}, false);
+        document.getElementById('faceSub').addEventListener("click", function(){
+			cycle(faces, '-', faceCtx);
+		}, false);
+        
+		
+		document.getElementById('eyeAdd').addEventListener("click", function(){
+			cycle(eyes, '+', eyeCtx);
+		}, false);
+        document.getElementById('eyeSub').addEventListener("click", function(){
+			cycle(eyes, '-', eyeCtx);
+		}, false);
+        
+		document.getElementById('mouthAdd').addEventListener("click", function(){
+			cycle(mouths, '+', mouthCtx);
+		}, false);	
+        document.getElementById('mouthSub').addEventListener("click", function(){
+			cycle(mouths, '-', mouthCtx);
+		}, false);
+        
+		document.getElementById('noseAdd').addEventListener("click", function(){
+			cycle(noses, '+', noseCtx);
+		}, false);
+        document.getElementById('noseSub').addEventListener("click", function(){
+			cycle(noses, '-', noseCtx);
+		}, false);
+        
+		document.getElementById('hairAdd').addEventListener("click", function(){
+			cycle(hairs, '+', hairCtx);
+		}, false);
+        document.getElementById('hairSub').addEventListener("click", function(){
+			cycle(hairs, '-', hairCtx);
+		}, false);
+		
+	</script>
+	
+	
+	
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>  
+ </html>
