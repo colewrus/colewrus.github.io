@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Data Dummy</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"> 
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link rel="stylesheet" href="datadummy-style.css">
+        <script src="datadummy.js"></script>
+    </head>
+    <body>      
+    
+        <h1>Data Dummy</h1>
+        <form name="dummyData" method="get" class="dummy-form">
+            <div class="form-row">
+                <label for="nameA">Enter Name for column A</label>
+                <input type="text" name="nameA" id="nameA" required>
+                <label for="typeA">Select the value type</label>
+                <select name="type" id="typeA">
+                  <option value="int">Integer</option>
+                  <option value="bool">Boolean</option>
+                  <option value="string">String</option>
+                  <option vlaue="float">Float</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="nameB">Enter Name for column B</label>
+                <input type="text" name="nameB" id="nameB" required>
+                <label for="typeB">Select the value type</label>
+                <select name="type" id="typeB">
+                  <option value="int">Integer</option>
+                  <option value="bool">Boolean</option>
+                  <option value="string">String</option>
+                  <option vlaue="float">Float</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <input type="button" value="Generate" onclick="getFormData();">
+            </div>
+        </form>
+        
+        
+    </body>
+</html>

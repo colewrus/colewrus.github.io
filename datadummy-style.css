@@ -1,0 +1,9 @@
+body{
+    font-family: 'Nunito', sans-serif;
+    background-color: #3E2C41;
+    color: #F0F8FA; 
+}
+
+.form-row{
+    margin-top: 15px;
+}

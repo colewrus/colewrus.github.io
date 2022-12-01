@@ -55,6 +55,16 @@
             "page_image":"",
             "page_player":"https://www.youtube.com/embed/videoseries?list=PLr5I6QlQlM59aWqJ-4cdHW5jqs_CbUqso",
             "page_links": [{"linkText": "Doc 1", "linkURL": "#"}]
+        },
+          {
+            "id":"000g",
+            "card_title": "Photobooth",
+            "card_content": "Wanted to make a photobooth for a Halloween party.",
+            "category":"assorted",
+            "page_content":"",            
+            "page_image":"",
+            "page_player":"https://colewrus.github.io/photobooth",
+            "external": "true"
         }
     ]
 }

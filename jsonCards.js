@@ -153,6 +153,12 @@ function setCards(_data, cat=null){
 //this gives the details of the project on the card
 function readCard(_card){
   console.log("Read card" , _card);     
+  //send it to external page
+  if(_card.external){
+      window.open(_card.page_player, "blank");  
+      return;
+  }
+  //create a page
   var _deck = document.getElementById('deck');
   clearCards(_deck);
 
@@ -179,8 +185,6 @@ function readCard(_card){
       }    
     }
   }
-
-
   if(_card.page_player != ""){
     console.log("should load iframe");
     var frame = document.createElement('iframe');  
